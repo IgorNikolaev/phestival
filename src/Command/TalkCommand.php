@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Igor\Command;
+namespace Phestival\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

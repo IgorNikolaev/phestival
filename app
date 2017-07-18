@@ -11,7 +11,7 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-use Igor\Command\TalkCommand;
+use Phestival\Command\TalkCommand;
 use Symfony\Component\Console\Application;
 
 $app = new Application();

@@ -1,4 +1,4 @@
-# phestival
+# Phestival
 
 Run it with
 

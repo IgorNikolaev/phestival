@@ -1,5 +1,5 @@
 {
-    "name": "igor/phestival",
+    "name": "phestival/phestival",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -12,6 +12,6 @@
         "symfony/console": "^3.3"
     },
     "autoload": {
-        "psr-4": {"Igor\\": "src/"}
+        "psr-4": {"Phestival\\": "src/"}
     }
 }
