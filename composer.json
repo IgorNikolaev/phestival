@@ -1,10 +1,10 @@
 {
-    "name": "phestival/phestival",
-    "type": "project",
+    "name":    "phestival/phestival",
+    "type":    "project",
     "license": "MIT",
     "authors": [
         {
-            "name": "Igor Nikolaev",
+            "name":  "Igor Nikolaev",
             "email": "igor.sv.n@gmail.com"
         }
     ],
