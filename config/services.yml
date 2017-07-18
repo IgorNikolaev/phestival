@@ -9,6 +9,8 @@ services:
             - Says something interesting
             - "@provider.time"
             - "%language%"
+        tags:
+            - { name: command }
 
     provider.time:
         class: Phestival\Provider\TimeProvider

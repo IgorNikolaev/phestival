@@ -21,5 +21,9 @@ $container->setParameter('project_dir', __DIR__);
 (new YamlFileLoader($container, new FileLocator(__DIR__.'/config')))->load('services.yml');
 
 $app = new Application();
-$app->add($container->get('command.talk'));
+
+foreach ($container->findTaggedServiceIds('command') as $id => $attr) {
+    $app->add($container->get($id));
+}
+
 $app->run();
