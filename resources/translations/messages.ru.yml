@@ -1,6 +1,6 @@
 provider:
     time:
         exactly: р+овно
-        hours:   '%hours% час | %hours% час+а | %hours% час+ов'
-        minutes: '%minutes% мин+ута | %minutes% мин+уты | %minutes% мин+ут'
-        time:    вр+емя
+        hours:   '%number% час | %number% час+а | %number% час+ов'
+        minutes: '%number% мин+ута | %number% мин+уты | %number% мин+ут'
+        text:    'Вр+емя %hours% %minutes%.'

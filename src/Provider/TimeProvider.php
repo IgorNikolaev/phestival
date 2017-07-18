@@ -45,13 +45,13 @@ class TimeProvider implements ProviderInterface
      */
     public function get(): string
     {
-        $parts = [
-            $this->translator->trans('provider.time.time'),
-            $this->getHours(),
-            $this->getMinutes(),
-        ];
+        $hours   = $this->getHours();
+        $minutes = $this->getMinutes();
 
-        return implode(' ', $parts);
+        return $this->translator->trans('provider.time.text', [
+            '%hours%'   => $hours,
+            '%minutes%' => $minutes,
+        ]);
     }
 
     /**
@@ -62,7 +62,7 @@ class TimeProvider implements ProviderInterface
         $number = (int) (new \DateTimeImmutable())->format('H');
 
         return $this->translator->transChoice('provider.time.hours', $number, [
-            '%hours%' => $this->formatNumber($number),
+            '%number%' => $this->formatNumber($number),
         ]);
     }
 
@@ -76,7 +76,7 @@ class TimeProvider implements ProviderInterface
         return 0 === $number
             ? $this->translator->trans('provider.time.exactly')
             : $this->translator->transChoice('provider.time.minutes', $number, [
-                '%minutes%' => $this->formatNumber($number, self::GENDER_FEMININE),
+                '%number%' => $this->formatNumber($number, self::GENDER_FEMININE),
             ]);
     }
 
