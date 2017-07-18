@@ -13,7 +13,7 @@ namespace Phestival\Provider;
 /**
  * Time provider
  */
-class TimeProvider
+class TimeProvider implements ProviderInterface
 {
     private const GENDER_FEMININE  = 'feminine';
     private const GENDER_MASCULINE = 'masculine';
@@ -32,7 +32,7 @@ class TimeProvider
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function get(): string
     {
