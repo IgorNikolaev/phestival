@@ -8,5 +8,7 @@
             "email": "igor.sv.n@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/console": "^3.3"
+    }
 }
