@@ -14,6 +14,7 @@ use Phestival\Provider\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator;
@@ -42,6 +43,10 @@ class TalkCommand extends Command
         $translator->addLoader('yaml', new YamlFileLoader());
         $translator->addResource('yaml', __DIR__.'/../../resources/translations/messages.ru.yml', 'ru');
 
-        $output->writeln((new TimeProvider($translator))->get());
+        $text = (new TimeProvider($translator))->get();
+
+        $output->writeln($text);
+
+        (new Process(sprintf('/bin/echo "%s" | /usr/bin/festival --tts --language russian', $text)))->mustRun();
     }
 }
