@@ -11,9 +11,15 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-use Phestival\Command\TalkCommand;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+
+$container = new ContainerBuilder();
+$container->setParameter('project_dir', __DIR__);
+(new YamlFileLoader($container, new FileLocator(__DIR__.'/config')))->load('services.yml');
 
 $app = new Application();
-$app->add(new TalkCommand());
+$app->add($container->get('command.talk'));
 $app->run();

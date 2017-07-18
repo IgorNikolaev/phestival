@@ -1,0 +1,23 @@
+services:
+    command.talk:
+        class: Phestival\Command\TalkCommand
+        arguments:
+            - talk
+            - Says something interesting
+            - '@provider.time'
+
+    provider.time:
+        class: Phestival\Provider\TimeProvider
+        arguments:
+            - '@translator'
+
+    translator:
+        class: Symfony\Component\Translation\Translator
+        arguments:
+            - ru
+        calls:
+            - [addLoader,   [yaml, '@translator.file_loader']]
+            - [addResource, [yaml, '%project_dir%/resources/translations/messages.ru.yml', ru]]
+
+    translator.file_loader:
+        class: Symfony\Component\Translation\Loader\YamlFileLoader

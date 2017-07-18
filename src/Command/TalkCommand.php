@@ -10,14 +10,11 @@
 
 namespace Phestival\Command;
 
-use Phestival\Provider\TimeProvider;
+use Phestival\Provider\ProviderInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Translation\Loader\YamlFileLoader;
-use Symfony\Component\Translation\MessageSelector;
-use Symfony\Component\Translation\Translator;
 
 /**
  * Talk command
@@ -25,13 +22,22 @@ use Symfony\Component\Translation\Translator;
 class TalkCommand extends Command
 {
     /**
-     * {@inheritdoc}
+     * @var \Phestival\Provider\ProviderInterface
      */
-    protected function configure()
+    private $timeProvider;
+
+    /**
+     * @param string                                $name         Command name
+     * @param string                                $description  Command description
+     * @param \Phestival\Provider\ProviderInterface $timeProvider Time provider
+     */
+    public function __construct(string $name, string $description, ProviderInterface $timeProvider)
     {
-        $this
-            ->setName('talk')
-            ->setDescription('Says some useful info');
+        parent::__construct($name);
+
+        $this->setDescription($description);
+
+        $this->timeProvider = $timeProvider;
     }
 
     /**
@@ -39,11 +45,7 @@ class TalkCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $translator = new Translator('ru', new MessageSelector());
-        $translator->addLoader('yaml', new YamlFileLoader());
-        $translator->addResource('yaml', __DIR__.'/../../resources/translations/messages.ru.yml', 'ru');
-
-        $text = (new TimeProvider($translator))->get();
+        $text = $this->timeProvider->get();
 
         $output->writeln($text);
 
