@@ -48,7 +48,7 @@ class TimeProvider implements ProviderInterface
         $parts = [
             $this->translator->trans('provider.time.time'),
             $this->getHours(),
-            $this->getMinutes()
+            $this->getMinutes(),
         ];
 
         return implode(' ', $parts);
