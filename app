@@ -19,6 +19,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 $container = new ContainerBuilder();
 $container->setParameter('project_dir', __DIR__);
 (new YamlFileLoader($container, new FileLocator(__DIR__.'/config')))->load('services.yml');
+$container->compile();
 
 $app = new Application();
 
