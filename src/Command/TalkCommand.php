@@ -14,6 +14,9 @@ use Phestival\Provider\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
+use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\Translation\Translator;
 
 /**
  * Talk command
@@ -35,6 +38,10 @@ class TalkCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln((new TimeProvider('ru'))->get());
+        $translator = new Translator('ru', new MessageSelector());
+        $translator->addLoader('yaml', new YamlFileLoader());
+        $translator->addResource('yaml', __DIR__.'/../../resources/translations/messages.ru.yml', 'ru');
+
+        $output->writeln((new TimeProvider($translator))->get());
     }
 }

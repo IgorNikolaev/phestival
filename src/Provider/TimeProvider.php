@@ -10,6 +10,8 @@
 
 namespace Phestival\Provider;
 
+use Symfony\Component\Translation\TranslatorInterface;
+
 /**
  * Time provider
  */
@@ -19,16 +21,23 @@ class TimeProvider implements ProviderInterface
     private const GENDER_MASCULINE = 'masculine';
 
     /**
+     * @var \Symfony\Component\Translation\TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * @var \NumberFormatter
      */
     private $numberFormatter;
 
     /**
-     * @param string $locale Locale
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator Translator
      */
-    public function __construct(string $locale)
+    public function __construct(TranslatorInterface $translator)
     {
-        $this->numberFormatter = new \NumberFormatter($locale, \NumberFormatter::SPELLOUT);
+        $this->translator = $translator;
+
+        $this->numberFormatter = new \NumberFormatter($translator->getLocale(), \NumberFormatter::SPELLOUT);
     }
 
     /**
@@ -37,8 +46,9 @@ class TimeProvider implements ProviderInterface
     public function get(): string
     {
         $parts = [
+            $this->translator->trans('provider.time.time'),
             $this->getHours(),
-            $this->getMinutes(),
+            $this->getMinutes()
         ];
 
         return implode(' ', $parts);
@@ -51,7 +61,9 @@ class TimeProvider implements ProviderInterface
     {
         $number = (int) (new \DateTimeImmutable())->format('H');
 
-        return $this->formatNumber($number);
+        return $this->translator->transChoice('provider.time.hours', $number, [
+            '%hours%' => $this->formatNumber($number),
+        ]);
     }
 
     /**
@@ -61,7 +73,11 @@ class TimeProvider implements ProviderInterface
     {
         $number = (int) (new \DateTimeImmutable())->format('i');
 
-        return $this->formatNumber($number, self::GENDER_FEMININE);
+        return 0 === $number
+            ? $this->translator->trans('provider.time.exactly')
+            : $this->translator->transChoice('provider.time.minutes', $number, [
+                '%minutes%' => $this->formatNumber($number, self::GENDER_FEMININE),
+            ]);
     }
 
     /**
