@@ -7,20 +7,22 @@ services:
         arguments:
             - talk
             - Says something interesting
-            - '@provider.time'
+            - "@provider.time"
+            - "%language%"
 
     provider.time:
         class: Phestival\Provider\TimeProvider
         arguments:
-            - '@translator'
+            - "@translator"
 
     translator:
         class: Symfony\Component\Translation\Translator
         arguments:
-            - '%locale%'
+            - "%locale%"
         calls:
-            - [addLoader,   [yaml, '@translator.file_loader']]
-            - [addResource, [yaml, '%project_dir%/resources/translations/messages.ru.yml', ru]]
+            - [addLoader,   [yaml, "@translator.file_loader"]]
+            - [addResource, [yaml, "%project_dir%/resources/translations/messages.en.yml", en]]
+            - [addResource, [yaml, "%project_dir%/resources/translations/messages.ru.yml", ru]]
 
     translator.file_loader:
         class: Symfony\Component\Translation\Loader\YamlFileLoader

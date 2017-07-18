@@ -27,17 +27,24 @@ class TalkCommand extends Command
     private $timeProvider;
 
     /**
+     * @var string
+     */
+    private $language;
+
+    /**
      * @param string                                $name         Command name
      * @param string                                $description  Command description
      * @param \Phestival\Provider\ProviderInterface $timeProvider Time provider
+     * @param string                                $language     Language
      */
-    public function __construct(string $name, string $description, ProviderInterface $timeProvider)
+    public function __construct(string $name, string $description, ProviderInterface $timeProvider, string $language)
     {
         parent::__construct($name);
 
         $this->setDescription($description);
 
         $this->timeProvider = $timeProvider;
+        $this->language = $language;
     }
 
     /**
@@ -49,6 +56,6 @@ class TalkCommand extends Command
 
         $output->writeln($text);
 
-        (new Process(sprintf('/bin/echo "%s" | /usr/bin/festival --tts --language russian', $text)))->mustRun();
+        (new Process(sprintf('/bin/echo "%s" | /usr/bin/festival --tts --language %s', $text, $this->language)))->mustRun();
     }
 }

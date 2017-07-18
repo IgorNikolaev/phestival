@@ -1,2 +1,3 @@
 parameters:
-    locale: ru
+    language: russian
+    locale:   ru
