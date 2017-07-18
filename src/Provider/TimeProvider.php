@@ -15,11 +15,65 @@ namespace Phestival\Provider;
  */
 class TimeProvider
 {
+    private const GENDER_FEMININE  = 'feminine';
+    private const GENDER_MASCULINE = 'masculine';
+
+    /**
+     * @var \NumberFormatter
+     */
+    private $numberFormatter;
+
+    /**
+     * @param string $locale Locale
+     */
+    public function __construct(string $locale)
+    {
+        $this->numberFormatter = new \NumberFormatter($locale, \NumberFormatter::SPELLOUT);
+    }
+
     /**
      * @return string
      */
     public function get(): string
     {
-        return (new \DateTimeImmutable())->format('d.m.Y H:i');
+        $parts = [
+            $this->getHours(),
+            $this->getMinutes(),
+        ];
+
+        return implode(' ', $parts);
+    }
+
+    /**
+     * @return string
+     */
+    private function getHours(): string
+    {
+        $number = (int) (new \DateTimeImmutable())->format('H');
+
+        return $this->formatNumber($number);
+    }
+
+    /**
+     * @return string
+     */
+    private function getMinutes(): string
+    {
+        $number = (int) (new \DateTimeImmutable())->format('i');
+
+        return $this->formatNumber($number, self::GENDER_FEMININE);
+    }
+
+    /**
+     * @param int    $number Number
+     * @param string $gender Gender
+     *
+     * @return string
+     */
+    private function formatNumber(int $number, string $gender = self::GENDER_MASCULINE): string
+    {
+        $this->numberFormatter->setTextAttribute(\NumberFormatter::DEFAULT_RULESET, '%spellout-cardinal-'.$gender);
+
+        return $this->numberFormatter->format($number);
     }
 }

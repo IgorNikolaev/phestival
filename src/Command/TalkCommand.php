@@ -35,6 +35,6 @@ class TalkCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln((new TimeProvider())->get());
+        $output->writeln((new TimeProvider('ru'))->get());
     }
 }

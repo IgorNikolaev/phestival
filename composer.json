@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-        "symfony/console": "^3.3"
+        "symfony/console": "^3.3",
+        "ext-intl": "^1.1"
     },
     "autoload": {
         "psr-4": {"Phestival\\": "src/"}
