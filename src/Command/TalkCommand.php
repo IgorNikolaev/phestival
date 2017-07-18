@@ -10,6 +10,7 @@
 
 namespace Phestival\Command;
 
+use Phestival\Provider\TimeProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -34,6 +35,6 @@ class TalkCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('Hello, world!');
+        $output->writeln((new TimeProvider())->get());
     }
 }
