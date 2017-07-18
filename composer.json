@@ -1,0 +1,12 @@
+{
+    "name": "igor/phestival",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Nikolaev",
+            "email": "igor.sv.n@gmail.com"
+        }
+    ],
+    "require": {}
+}
