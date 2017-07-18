@@ -18,5 +18,9 @@
     },
     "autoload": {
         "psr-4": {"Phestival\\": "src/"}
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages":       true
     }
 }
