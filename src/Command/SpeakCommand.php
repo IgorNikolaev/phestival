@@ -33,15 +33,12 @@ class SpeakCommand extends Command
 
     /**
      * @param string                                $name         Command name
-     * @param string                                $description  Command description
      * @param \Phestival\Provider\ProviderInterface $timeProvider Time provider
      * @param string                                $language     Language
      */
-    public function __construct(string $name, string $description, ProviderInterface $timeProvider, string $language)
+    public function __construct(string $name, ProviderInterface $timeProvider, string $language)
     {
         parent::__construct($name);
-
-        $this->setDescription($description);
 
         $this->timeProvider = $timeProvider;
         $this->language = $language;

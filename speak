@@ -13,6 +13,7 @@ require __DIR__.'/vendor/autoload.php';
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
@@ -22,9 +23,5 @@ $container->setParameter('project_dir', __DIR__);
 $container->compile();
 
 $app = new Application();
-
-foreach ($container->findTaggedServiceIds('command') as $id => $attr) {
-    $app->add($container->get($id));
-}
-
-$app->run();
+$app->add($container->get('command.speak'));
+$app->run(new ArrayInput(['command' => 'speak']));
