@@ -3,5 +3,5 @@
 Run it with
 
 ```shell
-$ ./app speak
+$ ./speak
 ```
