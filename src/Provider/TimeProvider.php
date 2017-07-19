@@ -59,7 +59,7 @@ class TimeProvider implements ProviderInterface
      */
     private function getHours(): string
     {
-        $number = (int) (new \DateTimeImmutable())->format('H');
+        $number = (int) (new \DateTimeImmutable())->format('G');
 
         return $this->translator->transChoice('provider.time.hours', $number, [
             '%number%' => $this->formatNumber($number),
