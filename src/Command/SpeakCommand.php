@@ -17,9 +17,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 /**
- * Talk command
+ * Speak command
  */
-class TalkCommand extends Command
+class SpeakCommand extends Command
 {
     /**
      * @var \Phestival\Provider\ProviderInterface

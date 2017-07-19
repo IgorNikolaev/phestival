@@ -5,12 +5,12 @@ services:
     _defaults:
         public: false
 
-    command.talk:
-        class:  Phestival\Command\TalkCommand
+    command.speak:
+        class:  Phestival\Command\SpeakCommand
         public: true
         arguments:
-            - talk
-            - Says something interesting
+            - speak
+            - Speaks some useful info
             - "@provider.time"
             - "%language%"
         tags:
