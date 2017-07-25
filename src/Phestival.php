@@ -12,6 +12,7 @@ namespace Phestival;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -22,6 +23,11 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 class Phestival
 {
     /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    private $container;
+
+    /**
      * @var \Symfony\Component\Console\Application
      */
     private $app;
@@ -31,20 +37,25 @@ class Phestival
      */
     public function __construct(string $projectDir)
     {
-        $container = new ContainerBuilder();
-        $container->setParameter('project_dir', $projectDir);
-        (new YamlFileLoader($container, new FileLocator($projectDir.'/config')))->load('services.yml');
-        $container->compile();
-
-        /** @var \Symfony\Component\Console\Command\Command $command */
-        $command = $container->get('command.speak');
+        $this->container = new ContainerBuilder();
+        $this->container->setParameter('project_dir', $projectDir);
+        (new YamlFileLoader($this->container, new FileLocator($projectDir.'/config')))->load('services.yml');
+        $this->container->compile();
 
         $this->app = new Application();
-        $this->app->add($command);
+        $this->app->add($this->getSpeakCommand());
     }
 
     public function run()
     {
-        $this->app->run(new ArrayInput(['command' => 'speak']));
+        $this->app->run(new ArrayInput(['command' => $this->getSpeakCommand()->getName()]));
+    }
+
+    /**
+     * @return \Symfony\Component\Console\Command\Command
+     */
+    private function getSpeakCommand(): Command
+    {
+        return $this->container->get('command.speak');
     }
 }
