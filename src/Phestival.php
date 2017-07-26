@@ -15,7 +15,7 @@ use Phestival\DependencyInjection\Compiler\AddResourcesToTranslatorPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
@@ -51,9 +51,12 @@ class Phestival
         $this->app->add($this->getSpeakCommand());
     }
 
-    public function run()
+    /**
+     * @param array $argv An array of parameters from the CLI (in the argv format)
+     */
+    public function run(array $argv)
     {
-        $this->app->run(new ArrayInput(['command' => $this->getSpeakCommand()->getName()]));
+        $this->app->run(new ArgvInput($argv));
     }
 
     /**

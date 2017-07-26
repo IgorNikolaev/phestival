@@ -54,7 +54,9 @@ class SpeakCommand extends Command
 
         $text = $this->providerPool->getText();
 
-        $io->comment($text);
+        if ($io->isVerbose()) {
+            $io->comment($text);
+        }
 
         $this->speaker->speak($text);
     }

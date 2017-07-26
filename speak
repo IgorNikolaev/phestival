@@ -13,4 +13,4 @@ require __DIR__.'/vendor/autoload.php';
 
 use Phestival\Phestival;
 
-(new Phestival(__DIR__))->run();
+(new Phestival(__DIR__))->run(array_merge($argv, ['speak']));
