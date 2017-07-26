@@ -13,6 +13,20 @@ services:
             - "@provider_pool"
             - "@speaker"
 
+    http_client:
+        class: GuzzleHttp\Client
+        arguments:
+            -
+                connect_timeout: "%http_client_timeout%"
+                timeout:         "%http_client_timeout%"
+
+    json_mapper:
+        class: JsonMapper
+        properties:
+            bExceptionOnMissingData:   true
+            bIgnoreVisibility:         true
+            bStrictObjectTypeChecking: true
+
     provider_pool:
         class: Phestival\Provider\ProviderPool
 
@@ -23,8 +37,12 @@ services:
         tags:
             - { name: provider }
 
-    provider.weather:
-        class: Phestival\Provider\Weather\WeatherProvider
+    provider.weather.owm:
+        class: Phestival\Provider\Weather\OWM\OWMWeatherProvider
+        arguments:
+            - "@http_client"
+            - "@json_mapper"
+            - "%owm_current_weather_uri%"
         tags:
             - { name: provider }
 

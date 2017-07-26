@@ -8,20 +8,25 @@
  * file that was distributed with this source code.
  */
 
-namespace Phestival\Provider\Weather;
-
-use Phestival\Provider\ProviderInterface;
+namespace Phestival\Provider\Weather\OWM\Response;
 
 /**
- * Weather provider
+ * OpenWeatherMap current weather data API response main
  */
-class WeatherProvider implements ProviderInterface
+class Main
 {
     /**
-     * {@inheritdoc}
+     * @required
+     *
+     * @var float
      */
-    public function get(): string
+    private $temp;
+
+    /**
+     * @return int
+     */
+    public function getTemperature(): int
     {
-        return 'Пог+ода отл+ичьная!';
+        return (int) round($this->temp);
     }
 }

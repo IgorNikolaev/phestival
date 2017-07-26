@@ -1,3 +1,9 @@
 parameters:
-    language: russian # Festival language name
-    locale:   ru      # Translator locale
+    # Festival language name
+    language: russian
+    # Translator locale
+    locale: ru
+    # HTTP client timeout in seconds
+    http_client_timeout: 3
+    # OpenWeatherMap current weather data API URI
+    owm_current_weather_uri: http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a1
