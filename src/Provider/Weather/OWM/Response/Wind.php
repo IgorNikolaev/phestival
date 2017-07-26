@@ -15,7 +15,7 @@ namespace Phestival\Provider\Weather\OWM\Response;
  */
 class Wind
 {
-    private const DIRECTIONS = [
+    const DIRECTIONS = [
         'n'  => [[318, 360], [0, 22]],
         'ne' => [[22, 68]],
         'e'  => [[68, 112]],
