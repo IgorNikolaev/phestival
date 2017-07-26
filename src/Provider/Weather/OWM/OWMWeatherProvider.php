@@ -14,6 +14,7 @@ use GuzzleHttp\ClientInterface;
 use Phestival\Provider\ProviderInterface;
 use Phestival\Provider\Weather\OWM\Response\Main;
 use Phestival\Provider\Weather\OWM\Response\Response;
+use Phestival\Provider\Weather\OWM\Response\Weather;
 use Phestival\Provider\Weather\OWM\Response\Wind;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -86,10 +87,20 @@ class OWMWeatherProvider implements ProviderInterface
         $response = $this->createResponse($data);
 
         return $this->translator->trans('provider.weather.owm.text', [
-            '%description%' => $response->getWeather()->getDescription(),
+            '%condition%'   => $this->translateCondition($response->getWeather()),
             '%wind%'        => $this->translateWind($response->getWind()),
             '%temperature%' => $this->translateTemperature($response->getMain()),
         ]);
+    }
+
+    /**
+     * @param \Phestival\Provider\Weather\OWM\Response\Weather $weather Weather
+     *
+     * @return string
+     */
+    private function translateCondition(Weather $weather): string
+    {
+        return $this->translator->trans('provider.weather.owm.condition.'.$weather->getId());
     }
 
     /**
