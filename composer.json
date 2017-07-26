@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7",
         "ext-intl": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
         "incenteev/composer-parameter-handler": "^2.1",

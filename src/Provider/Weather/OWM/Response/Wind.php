@@ -49,10 +49,10 @@ class Wind
     }
 
     /**
-     * @return string|null
+     * @return string
      * @throws \RuntimeException
      */
-    public function getDirection(): ?string
+    public function getDirection(): string
     {
         foreach (self::DIRECTIONS as $direction => $ranges) {
             foreach ($ranges as list($min, $max)) {
