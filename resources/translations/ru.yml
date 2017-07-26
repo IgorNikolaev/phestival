@@ -4,3 +4,19 @@ provider:
         hours:   "%number% час | %number% час+а | %number% час+ов"
         minutes: "%number% мин+ута | %number% мин+уты | %number% мин+ут"
         text:    "Вр+емя %hours% %minutes%."
+    weather:
+        owm:
+            temperature: "%number% гр+адус | %number% гр+адуса | %number% гр+адусов"
+            text:        "На +улице %description% в+етер %wind% температ+ура %temperature%."
+            wind:
+                direction:
+                    n:  с+еверный
+                    ne: северо-вост+очный
+                    e:  вост+очный
+                    se: юго-вост+очный
+                    s:  +южный
+                    sw: юго-з+ападный
+                    w:  з+ападный
+                    nw: северо-з+ападный
+                speed: "%number% метр в сек+унду | %number% м+етра в сек+унду | %number% м+етров в сек+унду"
+                text:  "%direction% %speed%"

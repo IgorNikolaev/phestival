@@ -17,6 +17,7 @@ interface ProviderInterface
 {
     /**
      * @return string
+     * @throws \Exception
      */
     public function get(): string;
 }

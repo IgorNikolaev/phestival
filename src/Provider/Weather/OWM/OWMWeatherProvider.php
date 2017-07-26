@@ -12,7 +12,10 @@ namespace Phestival\Provider\Weather\OWM;
 
 use GuzzleHttp\ClientInterface;
 use Phestival\Provider\ProviderInterface;
+use Phestival\Provider\Weather\OWM\Response\Main;
 use Phestival\Provider\Weather\OWM\Response\Response;
+use Phestival\Provider\Weather\OWM\Response\Wind;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * OpenWeatherMap weather provider
@@ -30,19 +33,26 @@ class OWMWeatherProvider implements ProviderInterface
     private $jsonMapper;
 
     /**
+     * @var \Symfony\Component\Translation\TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * @var string
      */
     private $uri;
 
     /**
-     * @param \GuzzleHttp\ClientInterface $httpClient HTTP client
-     * @param \JsonMapper                 $jsonMapper JSON mapper
-     * @param string                      $uri        OpenWeatherMap current weather data API URI
+     * @param \GuzzleHttp\ClientInterface                        $httpClient HTTP client
+     * @param \JsonMapper                                        $jsonMapper JSON mapper
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator Translator
+     * @param string                                             $uri        OpenWeatherMap current weather data API URI
      */
-    public function __construct(ClientInterface $httpClient, \JsonMapper $jsonMapper, string $uri)
+    public function __construct(ClientInterface $httpClient, \JsonMapper $jsonMapper, TranslatorInterface $translator, string $uri)
     {
         $this->httpClient = $httpClient;
         $this->jsonMapper = $jsonMapper;
+        $this->translator = $translator;
         $this->uri = $uri;
     }
 
@@ -63,7 +73,42 @@ class OWMWeatherProvider implements ProviderInterface
 
         $response = $this->createResponse($data);
 
-        return $response->getWeather()->getDescription();
+        return $this->translator->trans('provider.weather.owm.text', [
+            '%description%' => $response->getWeather()->getDescription(),
+            '%wind%'        => $this->translateWind($response->getWind()),
+            '%temperature%' => $this->translateTemperature($response->getMain()),
+        ]);
+    }
+
+    /**
+     * @param \Phestival\Provider\Weather\OWM\Response\Main $main Main
+     *
+     * @return string
+     */
+    private function translateTemperature(Main $main): string
+    {
+        $temperature = $main->getTemperature();
+
+        return $this->translator->transChoice('provider.weather.owm.temperature', $temperature, [
+            '%number%' => $temperature,
+        ]);
+    }
+
+    /**
+     * @param \Phestival\Provider\Weather\OWM\Response\Wind $wind Wind
+     *
+     * @return string
+     */
+    private function translateWind(Wind $wind): string
+    {
+        $speed = $wind->getSpeed();
+
+        return $this->translator->trans('provider.weather.owm.wind.text', [
+            '%direction%' => $this->translator->trans('provider.weather.owm.wind.direction.'.$wind->getDirection()),
+            '%speed%'     => $this->translator->transChoice('provider.weather.owm.wind.speed', $speed, [
+                '%number%' => $speed,
+            ]),
+        ]);
     }
 
     /**

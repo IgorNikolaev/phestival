@@ -50,6 +50,7 @@ class Wind
 
     /**
      * @return string|null
+     * @throws \RuntimeException
      */
     public function getDirection(): ?string
     {
@@ -61,6 +62,6 @@ class Wind
             }
         }
 
-        return null;
+        throw new \RuntimeException(sprintf('Wind degree "%d" is invalid.', $this->deg));
     }
 }
