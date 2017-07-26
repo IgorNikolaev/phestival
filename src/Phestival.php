@@ -11,6 +11,7 @@
 namespace Phestival;
 
 use Phestival\DependencyInjection\Compiler\AddProvidersToPoolPass;
+use Phestival\DependencyInjection\Compiler\AddResourcesToTranslatorPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
@@ -41,8 +42,10 @@ class Phestival
         $this->container = new ContainerBuilder();
         $this->container->setParameter('project_dir', $projectDir);
         (new YamlFileLoader($this->container, new FileLocator($projectDir.'/config')))->load('services.yml');
-        $this->container->addCompilerPass(new AddProvidersToPoolPass());
-        $this->container->compile();
+        $this->container
+            ->addCompilerPass(new AddProvidersToPoolPass())
+            ->addCompilerPass(new AddResourcesToTranslatorPass($projectDir))
+            ->compile();
 
         $this->app = new Application();
         $this->app->add($this->getSpeakCommand());
