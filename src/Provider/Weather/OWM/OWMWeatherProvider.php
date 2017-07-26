@@ -33,6 +33,11 @@ class OWMWeatherProvider implements ProviderInterface
     private $jsonMapper;
 
     /**
+     * @var \NumberFormatter
+     */
+    private $masculineNumberFormatter;
+
+    /**
      * @var \Symfony\Component\Translation\TranslatorInterface
      */
     private $translator;
@@ -43,15 +48,22 @@ class OWMWeatherProvider implements ProviderInterface
     private $uri;
 
     /**
-     * @param \GuzzleHttp\ClientInterface                        $httpClient HTTP client
-     * @param \JsonMapper                                        $jsonMapper JSON mapper
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator Translator
-     * @param string                                             $uri        OpenWeatherMap current weather data API URI
+     * @param \GuzzleHttp\ClientInterface                        $httpClient               HTTP client
+     * @param \JsonMapper                                        $jsonMapper               JSON mapper
+     * @param \NumberFormatter                                   $masculineNumberFormatter Masculine number formatter
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator               Translator
+     * @param string                                             $uri                      OpenWeatherMap current weather data API URI
      */
-    public function __construct(ClientInterface $httpClient, \JsonMapper $jsonMapper, TranslatorInterface $translator, string $uri)
-    {
+    public function __construct(
+        ClientInterface $httpClient,
+        \JsonMapper $jsonMapper,
+        \NumberFormatter $masculineNumberFormatter,
+        TranslatorInterface $translator,
+        string $uri
+    ) {
         $this->httpClient = $httpClient;
         $this->jsonMapper = $jsonMapper;
+        $this->masculineNumberFormatter = $masculineNumberFormatter;
         $this->translator = $translator;
         $this->uri = $uri;
     }
@@ -90,7 +102,7 @@ class OWMWeatherProvider implements ProviderInterface
         $temperature = $main->getTemperature();
 
         return $this->translator->transChoice('provider.weather.owm.temperature', $temperature, [
-            '%number%' => $temperature,
+            '%number%' => $this->masculineNumberFormatter->format($temperature),
         ]);
     }
 
@@ -106,7 +118,7 @@ class OWMWeatherProvider implements ProviderInterface
         return $this->translator->trans('provider.weather.owm.wind.text', [
             '%direction%' => $this->translator->trans('provider.weather.owm.wind.direction.'.$wind->getDirection()),
             '%speed%'     => $this->translator->transChoice('provider.weather.owm.wind.speed', $speed, [
-                '%number%' => $speed,
+                '%number%' => $this->masculineNumberFormatter->format($speed),
             ]),
         ]);
     }

@@ -54,6 +54,7 @@ services:
         arguments:
             - "@http_client"
             - "@json_mapper"
+            - "@number_formatter.masculine"
             - "@translator"
             - "%owm_current_weather_uri%"
 
