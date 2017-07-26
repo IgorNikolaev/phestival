@@ -11,7 +11,7 @@ services:
         arguments:
             - speak
             - "@provider_pool"
-            - "%language%"
+            - "@speaker"
 
     provider_pool:
         class: Phestival\Provider\ProviderPool
@@ -22,6 +22,11 @@ services:
             - "@translator"
         tags:
             - { name: provider }
+
+    speaker:
+        class: Phestival\Speaker\Speaker
+        arguments:
+            - "%language%"
 
     translator:
         class: Symfony\Component\Translation\Translator

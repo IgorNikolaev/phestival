@@ -11,10 +11,10 @@
 namespace Phestival\Command;
 
 use Phestival\Provider\ProviderPool;
+use Phestival\Speaker\Speaker;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Process\Process;
 
 /**
  * Speak command
@@ -27,21 +27,21 @@ class SpeakCommand extends Command
     private $providerPool;
 
     /**
-     * @var string
+     * @var \Phestival\Speaker\Speaker
      */
-    private $language;
+    private $speaker;
 
     /**
      * @param string                           $name         Command name
      * @param \Phestival\Provider\ProviderPool $providerPool Provider pool
-     * @param string                           $language     Language
+     * @param \Phestival\Speaker\Speaker       $speaker      Speaker
      */
-    public function __construct(string $name, ProviderPool $providerPool, string $language)
+    public function __construct(string $name, ProviderPool $providerPool, Speaker $speaker)
     {
         parent::__construct($name);
 
         $this->providerPool = $providerPool;
-        $this->language = $language;
+        $this->speaker = $speaker;
     }
 
     /**
@@ -53,6 +53,6 @@ class SpeakCommand extends Command
 
         $output->writeln($text);
 
-        (new Process(sprintf('/bin/echo "%s" | /usr/bin/festival --tts --language %s', $text, $this->language)))->mustRun();
+        $this->speaker->speak($text);
     }
 }
