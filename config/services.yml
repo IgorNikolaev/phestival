@@ -10,13 +10,18 @@ services:
         public: true
         arguments:
             - speak
-            - "@provider.time"
+            - "@provider_pool"
             - "%language%"
+
+    provider_pool:
+        class: Phestival\Provider\ProviderPool
 
     provider.time:
         class: Phestival\Provider\TimeProvider
         arguments:
             - "@translator"
+        tags:
+            - { name: provider }
 
     translator:
         class: Symfony\Component\Translation\Translator

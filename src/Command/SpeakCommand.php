@@ -10,7 +10,7 @@
 
 namespace Phestival\Command;
 
-use Phestival\Provider\ProviderInterface;
+use Phestival\Provider\ProviderPool;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -22,9 +22,9 @@ use Symfony\Component\Process\Process;
 class SpeakCommand extends Command
 {
     /**
-     * @var \Phestival\Provider\ProviderInterface
+     * @var \Phestival\Provider\ProviderPool
      */
-    private $timeProvider;
+    private $providerPool;
 
     /**
      * @var string
@@ -32,15 +32,15 @@ class SpeakCommand extends Command
     private $language;
 
     /**
-     * @param string                                $name         Command name
-     * @param \Phestival\Provider\ProviderInterface $timeProvider Time provider
-     * @param string                                $language     Language
+     * @param string                           $name         Command name
+     * @param \Phestival\Provider\ProviderPool $providerPool Provider pool
+     * @param string                           $language     Language
      */
-    public function __construct(string $name, ProviderInterface $timeProvider, string $language)
+    public function __construct(string $name, ProviderPool $providerPool, string $language)
     {
         parent::__construct($name);
 
-        $this->timeProvider = $timeProvider;
+        $this->providerPool = $providerPool;
         $this->language = $language;
     }
 
@@ -49,7 +49,7 @@ class SpeakCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $text = $this->timeProvider->get();
+        $text = $this->providerPool->getText();
 
         $output->writeln($text);
 
