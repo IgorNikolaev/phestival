@@ -27,12 +27,26 @@ services:
             bIgnoreVisibility:         true
             bStrictObjectTypeChecking: true
 
+    number_formatter.feminine:
+        parent: number_formatter.masculine
+        public: false
+        calls:
+            - [setTextAttribute, [!php/const:NumberFormatter::DEFAULT_RULESET, "%spellout-cardinal-feminine"]]
+
+    number_formatter.masculine:
+        class: NumberFormatter
+        arguments:
+            - "%locale%"
+            - !php/const:NumberFormatter::SPELLOUT
+
     provider_pool:
         class: Phestival\Provider\ProviderPool
 
     provider.time:
         class: Phestival\Provider\TimeProvider
         arguments:
+            - "@number_formatter.feminine"
+            - "@number_formatter.masculine"
             - "@translator"
 
     provider.weather.owm:

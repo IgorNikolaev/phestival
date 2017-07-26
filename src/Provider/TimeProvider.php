@@ -17,8 +17,15 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class TimeProvider implements ProviderInterface
 {
-    private const GENDER_FEMININE  = 'feminine';
-    private const GENDER_MASCULINE = 'masculine';
+    /**
+     * @var \NumberFormatter
+     */
+    private $feminineNumberFormatter;
+
+    /**
+     * @var \NumberFormatter
+     */
+    private $masculineNumberFormatter;
 
     /**
      * @var \Symfony\Component\Translation\TranslatorInterface
@@ -26,18 +33,18 @@ class TimeProvider implements ProviderInterface
     private $translator;
 
     /**
-     * @var \NumberFormatter
+     * @param \NumberFormatter                                   $feminineNumberFormatter  Feminine number formatter
+     * @param \NumberFormatter                                   $masculineNumberFormatter Masculine number formatter
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator               Translator
      */
-    private $numberFormatter;
-
-    /**
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator Translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
+    public function __construct(
+        \NumberFormatter $feminineNumberFormatter,
+        \NumberFormatter $masculineNumberFormatter,
+        TranslatorInterface $translator
+    ) {
+        $this->feminineNumberFormatter = $feminineNumberFormatter;
+        $this->masculineNumberFormatter = $masculineNumberFormatter;
         $this->translator = $translator;
-
-        $this->numberFormatter = new \NumberFormatter($translator->getLocale(), \NumberFormatter::SPELLOUT);
     }
 
     /**
@@ -62,7 +69,7 @@ class TimeProvider implements ProviderInterface
         $number = (int) (new \DateTimeImmutable())->format('G');
 
         return $this->translator->transChoice('provider.time.hours', $number, [
-            '%number%' => $this->formatNumber($number),
+            '%number%' => $this->masculineNumberFormatter->format($number),
         ]);
     }
 
@@ -76,20 +83,7 @@ class TimeProvider implements ProviderInterface
         return 0 === $number
             ? $this->translator->trans('provider.time.exactly')
             : $this->translator->transChoice('provider.time.minutes', $number, [
-                '%number%' => $this->formatNumber($number, self::GENDER_FEMININE),
+                '%number%' => $this->feminineNumberFormatter->format($number),
             ]);
-    }
-
-    /**
-     * @param int    $number Number
-     * @param string $gender Gender
-     *
-     * @return string
-     */
-    private function formatNumber(int $number, string $gender = self::GENDER_MASCULINE): string
-    {
-        $this->numberFormatter->setTextAttribute(\NumberFormatter::DEFAULT_RULESET, '%spellout-cardinal-'.$gender);
-
-        return $this->numberFormatter->format($number);
     }
 }
