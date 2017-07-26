@@ -20,6 +20,6 @@ class WeatherProvider implements ProviderInterface
      */
     public function get(): string
     {
-        return 'Пог+ода отл+ичная!';
+        return 'Пог+ода отл+ичьная!';
     }
 }
