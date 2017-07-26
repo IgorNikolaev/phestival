@@ -8,7 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Phestival\Provider;
+namespace Phestival\Provider\Weather;
+
+use Phestival\Provider\ProviderInterface;
 
 /**
  * Weather provider

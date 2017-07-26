@@ -24,7 +24,7 @@ services:
             - { name: provider }
 
     provider.weather:
-        class: Phestival\Provider\WeatherProvider
+        class: Phestival\Provider\Weather\WeatherProvider
         tags:
             - { name: provider }
 
