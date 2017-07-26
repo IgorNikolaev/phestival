@@ -8,87 +8,87 @@ provider:
         owm:
             condition:
                 # Thunderstorm
-                200: thunderstorm with light rain
-                201: thunderstorm with rain
-                202: thunderstorm with heavy rain
-                210: light thunderstorm
-                211: thunderstorm
-                212: heavy thunderstorm
-                221: ragged thunderstorm
-                230: thunderstorm with light drizzle
-                231: thunderstorm with drizzle
-                232: thunderstorm with heavy drizzle
+                200: гроз+а и небольш+ой дождь
+                201: гроз+а и дождь
+                202: гроз+а и л+ивень
+                210: небольш+ая гроз+а
+                211: гроз+а
+                212: с+ильная гроз+а
+                221: сильн+ейшая гроз+а
+                230: гроз+а и небольш+ая +изморось
+                231: гроз+а и +изморось
+                232: гроз+а и с+ильная +изморось
                 # Drizzle
-                300: light intensity drizzle
-                301: drizzle
-                302: heavy intensity drizzle
-                310: light intensity drizzle rain
-                311: drizzle rain
-                312: heavy intensity drizzle rain
-                313: shower rain and drizzle
-                314: heavy shower rain and drizzle
-                321: shower drizzle
+                300: небольш+ая +изморось
+                301: +изморось
+                302: с+ильная +изморось
+                310: небольш+ой морос+ящий дождь
+                311: морос+ящий дождь
+                312: с+ильный морос+ящий дождь
+                313: л+ивень и +изморось
+                314: с+ильный л+ивень и +изморось
+                321: морос+ящий л+ивень
                 # Rain
-                500: light rain
-                501: moderate rain
-                502: heavy intensity rain
-                503: very heavy rain
-                504: extreme rain
-                511: freezing rain
-                520: light intensity shower rain
-                521: shower rain
-                522: heavy intensity shower rain
-                531: ragged shower rain
+                500: небольш+ой дождь
+                501: ум+еренный дождь
+                502: с+ильный дождь
+                503: +очень с+ильный дождь
+                504: экстрем+альный дождь
+                511: ледян+ой дождь
+                520: небольш+ой л+ивень
+                521: л+ивень
+                522: с+ильный л+ивень
+                531: сильн+ейший л+ивень
                 # Snow
-                600: light snow
-                601: snow
-                602: heavy snow
-                611: sleet
-                612: shower sleet
-                615: light rain and snow
-                616: rain and snow
-                620: light shower snow
-                621: shower snow
-                622: heavy shower snow
+                600: небольш+ой снег
+                601: снег
+                602: с+ильный снег
+                611: снег с дождём
+                612: с+ильный снег с дождём
+                615: небольш+ой дождь и снег
+                616: дождь и снег
+                620: небольш+ой снегоп+ад
+                621: снегоп+ад
+                622: с+ильный снегоп+ад
                 # Atmosphere
-                701: mist
-                711: smoke
-                721: haze
-                731: sand, dust whirls
-                741: fog
-                751: sand
-                761: dust
-                762: volcanic ash
-                771: squalls
-                781: tornado
+                701: тум+ан
+                711: дым
+                721: д+ымка
+                731: песч+аные и пылев+ые в+ихри
+                741: тум+ан
+                751: пес+ок
+                761: пыль
+                762: вулкан+ический п+епел
+                771: шкв+альный в+етер
+                781: торн+адо
                 # Clear
-                800: clear sky
+                800: ч+истое н+ебо
                 # Clouds
-                801: few clouds
-                802: scattered clouds
-                803: broken clouds
-                804: overcast clouds
+                801: мало+облачно
+                802: +облачно
+                803: +облачно
+                804: т+учи
                 # Extreme
-                900: tornado
-                901: tropical storm
-                902: hurricane
-                903: cold
-                904: hot
-                905: windy
-                906: hail
+                900: торн+адо
+                901: троп+ический шторм
+                902: ураг+ан
+                903: мор+оз
+                904: жар+а
+                905: в+етрено
+                906: град
                 # Additional
-                951: calm
-                952: light breeze
-                953: gentle breeze
-                954: moderate breeze
-                955: fresh breeze
-                956: strong breeze
-                957: high wind, near gale
-                958: gale
-                959: severe gale
-                960: storm
-                961: violent storm
-                962: hurricane
+                951: штиль
+                952: лёгкий бриз
+                953: м+ягкий бриз
+                954: ум+еренный бриз
+                955: св+ежий бриз
+                956: с+ильный бриз
+                957: с+ильный в+етер почт+и б+уря
+                958: б+уря
+                959: с+ильная б+уря
+                960: шторм
+                961: с+ильный шторм
+                962: ураг+ан
             temperature: "%number% гр+адус | %number% гр+адуса | %number% гр+адусов"
             text:        "На +улице %condition% в+етер %wind% температ+ура %temperature%."
             wind:
