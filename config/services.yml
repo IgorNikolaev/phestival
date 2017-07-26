@@ -23,6 +23,11 @@ services:
         tags:
             - { name: provider }
 
+    provider.weather:
+        class: Phestival\Provider\WeatherProvider
+        tags:
+            - { name: provider }
+
     speaker:
         class: Phestival\Speaker\Speaker
         arguments:
