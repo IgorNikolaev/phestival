@@ -34,8 +34,6 @@ services:
         class: Phestival\Provider\TimeProvider
         arguments:
             - "@translator"
-        tags:
-            - { name: provider }
 
     provider.weather.owm:
         class: Phestival\Provider\Weather\OWM\OWMWeatherProvider
@@ -43,8 +41,6 @@ services:
             - "@http_client"
             - "@json_mapper"
             - "%owm_current_weather_uri%"
-        tags:
-            - { name: provider }
 
     speaker:
         class: Phestival\Speaker\Speaker

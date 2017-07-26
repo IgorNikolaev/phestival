@@ -7,3 +7,5 @@ parameters:
     http_client_timeout: 3
     # OpenWeatherMap current weather data API URI
     owm_current_weather_uri: http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a1
+    # Enabled providers
+    providers: [ time, weather.owm ]

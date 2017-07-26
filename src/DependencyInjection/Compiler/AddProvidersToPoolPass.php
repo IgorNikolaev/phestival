@@ -26,8 +26,8 @@ class AddProvidersToPoolPass implements CompilerPassInterface
     {
         $definition = $container->getDefinition('provider_pool');
 
-        foreach (array_keys($container->findTaggedServiceIds('provider')) as $id) {
-            $definition->addMethodCall('addProvider', [new Reference($id)]);
+        foreach ($container->getParameter('providers') as $name) {
+            $definition->addMethodCall('addProvider', [new Reference('provider.'.$name)]);
         }
     }
 }
