@@ -5,6 +5,16 @@ services:
     _defaults:
         public: false
 
+    cache:
+        alias: cache.filesystem
+
+    cache.filesystem:
+        class: Symfony\Component\Cache\Simple\FilesystemCache
+        arguments:
+            - ""
+            - 0
+            - "%project_dir%/cache"
+
     command.speak:
         class:  Phestival\Command\SpeakCommand
         public: true

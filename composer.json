@@ -14,6 +14,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "incenteev/composer-parameter-handler": "^2.1",
         "netresearch/jsonmapper": "^1.2",
+        "symfony/cache": "^3.3",
         "symfony/config": "^3.3",
         "symfony/console": "^3.3",
         "symfony/dependency-injection": "^3.3",
