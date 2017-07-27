@@ -16,4 +16,4 @@ use Symfony\Component\Console\Input\ArgvInput;
 
 $input = new ArgvInput();
 
-(new Phestival($input->hasParameterOption('--no-debug'), __DIR__))->run($input);
+(new Phestival(!$input->hasParameterOption('--no-debug'), __DIR__))->run($input);
