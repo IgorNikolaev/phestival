@@ -9,3 +9,7 @@ parameters:
     owm_current_weather_uri: http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a1
     # Enabled providers
     providers: [ time, weather.owm ]
+    # Speech synthesize command ("%text%" - text to speak, "%file%" - output file pathname)
+    synthesize_command: "echo '%text%' | text2wave -o %file% -scale 2"
+    # Play command ("%file%" - pathname of file to play)
+    play_command: "paplay %file%"
