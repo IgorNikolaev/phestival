@@ -13,6 +13,7 @@
         "ext-intl": "^1.1",
         "guzzlehttp/guzzle": "^6.3",
         "incenteev/composer-parameter-handler": "^2.1",
+        "katzgrau/klogger": "^1.2",
         "netresearch/jsonmapper": "^1.2",
         "symfony/cache": "^3.3",
         "symfony/config": "^3.3",

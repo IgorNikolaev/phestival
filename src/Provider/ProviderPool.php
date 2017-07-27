@@ -10,21 +10,30 @@
 
 namespace Phestival\Provider;
 
+use Psr\Log\LoggerInterface;
+
 /**
  * Provider pool
  */
 class ProviderPool
 {
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @var \Phestival\Provider\ProviderInterface[]
      */
     private $providers;
 
     /**
-     * Provider pool constructor.
+     * @param \Psr\Log\LoggerInterface $logger Logger
      */
-    public function __construct()
+    public function __construct(LoggerInterface $logger)
     {
+        $this->logger = $logger;
+
         $this->providers = [];
     }
 
@@ -47,6 +56,12 @@ class ProviderPool
             try {
                 $parts[] = $provider->get();
             } catch (\Exception $ex) {
+                $context = $ex->getTrace()[0];
+
+                $this->logger->error($ex->getMessage(), [
+                    'class'  => $context['class'],
+                    'method' => $context['function'],
+                ]);
             }
         }
 

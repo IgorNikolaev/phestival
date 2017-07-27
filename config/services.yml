@@ -41,6 +41,11 @@ services:
             bIgnoreVisibility:         true
             bStrictObjectTypeChecking: true
 
+    logger:
+        class: Katzgrau\KLogger\Logger
+        arguments:
+            - "%project_dir%/logs"
+
     number_formatter.feminine:
         parent: number_formatter.masculine
         public: false
@@ -61,6 +66,8 @@ services:
 
     provider_pool:
         class: Phestival\Provider\ProviderPool
+        arguments:
+            - "@logger"
 
     provider.mail.gmail:
         class: Phestival\Provider\Mail\GmailProvider
