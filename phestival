@@ -13,10 +13,10 @@ require __DIR__.'/vendor/autoload.php';
 
 use Phestival\Phestival;
 
-$key = array_search('--debug', $argv);
-$debug = false !== $key;
+$key = array_search('--no-debug', $argv);
+$debug = false === $key;
 
-if ($debug) {
+if (!$debug) {
     unset($argv[$key]);
 }
 
