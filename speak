@@ -12,12 +12,8 @@
 require __DIR__.'/vendor/autoload.php';
 
 use Phestival\Phestival;
+use Symfony\Component\Console\Input\ArgvInput;
 
-$key = array_search('--no-debug', $argv);
-$debug = false === $key;
+$input = new ArgvInput();
 
-if (!$debug) {
-    unset($argv[$key]);
-}
-
-(new Phestival($argv, $debug, __DIR__))->run();
+(new Phestival($input->hasParameterOption('--no-debug'), __DIR__))->run($input);

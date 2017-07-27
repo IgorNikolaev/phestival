@@ -6,7 +6,7 @@ services:
         public: false
 
     app:
-        class:  Symfony\Component\Console\Application
+        class:  Phestival\Console\Application
         public: true
         calls:
             - [add,               ["@command.speak"]]

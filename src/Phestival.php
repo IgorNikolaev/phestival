@@ -15,7 +15,7 @@ use Phestival\DependencyInjection\Compiler\AddResourcesToTranslatorPass;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
@@ -26,11 +26,6 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 class Phestival
 {
-    /**
-     * @var array
-     */
-    private $argv;
-
     /**
      * @var bool
      */
@@ -52,13 +47,11 @@ class Phestival
     private $container;
 
     /**
-     * @param array  $argv       An array of parameters from the CLI (in the argv format)
      * @param bool   $debug      Is debug enabled
      * @param string $projectDir Project directory
      */
-    public function __construct(array $argv, bool $debug, string $projectDir)
+    public function __construct(bool $debug, string $projectDir)
     {
-        $this->argv = $argv;
         $this->debug = $debug;
         $this->projectDir = $projectDir;
 
@@ -67,11 +60,11 @@ class Phestival
     }
 
     /**
-     * Builds and runs application.
+     * @param \Symfony\Component\Console\Input\InputInterface $input Input
      */
-    public function run()
+    public function run(InputInterface $input)
     {
-        $this->getApp()->run(new ArgvInput($this->argv));
+        $this->getApp()->run($input);
     }
 
     /**
