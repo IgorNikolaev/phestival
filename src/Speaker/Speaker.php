@@ -57,6 +57,8 @@ class Speaker
         $this->tmpFileDir = $tmpFileDir;
 
         $this->tmpFilePathname = null;
+
+        pcntl_signal(SIGINT, [$this, '__destruct']);
     }
 
     public function __destruct()
