@@ -61,6 +61,9 @@ class Speaker
         pcntl_signal(SIGINT, [$this, '__destruct']);
     }
 
+    /**
+     * Makes cleanup.
+     */
     public function __destruct()
     {
         $this->cleanup();

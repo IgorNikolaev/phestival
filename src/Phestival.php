@@ -72,6 +72,9 @@ class Phestival
         $this->container = $this->app = null;
     }
 
+    /**
+     * Builds and runs application.
+     */
     public function run()
     {
         $this->getApp()->run(new ArgvInput($this->argv));
