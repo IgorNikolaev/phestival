@@ -63,7 +63,7 @@ services:
         class: Phestival\Provider\ProviderPool
 
     provider.mail.gmail:
-        class: Phestival\Provider\Mail\Gmail\GmailProvider
+        class: Phestival\Provider\Mail\GmailProvider
         arguments:
             - "@cache"
             - "@http_client"

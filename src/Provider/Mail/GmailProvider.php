@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Phestival\Provider\Mail\Gmail;
+namespace Phestival\Provider\Mail;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\RequestOptions;
