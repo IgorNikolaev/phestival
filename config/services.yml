@@ -56,6 +56,9 @@ services:
     provider_pool:
         class: Phestival\Provider\ProviderPool
 
+    provider.mail.gmail:
+        class: Phestival\Provider\Mail\Gmail\GmailProvider
+
     provider.time:
         class: Phestival\Provider\TimeProvider
         arguments:
