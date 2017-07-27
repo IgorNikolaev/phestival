@@ -14,6 +14,7 @@ use Phestival\Provider\ProviderPool;
 use Phestival\Speaker\Speaker;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -51,16 +52,29 @@ class SpeakCommand extends Command
     /**
      * {@inheritdoc}
      */
+    protected function configure()
+    {
+        $this->setDefinition([
+            new InputOption('silent', 's', InputOption::VALUE_NONE, 'Do not speak'),
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
 
+        $silent = $input->getOption('silent');
+
         $text = $this->providerPool->getText();
 
-        if ($io->isVerbose()) {
+        if ($silent || $io->isVerbose()) {
             $io->comment($text);
         }
-
-        $this->speaker->speak($text);
+        if (!$silent) {
+            $this->speaker->speak($text);
+        }
     }
 }
