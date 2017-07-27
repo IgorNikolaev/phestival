@@ -9,7 +9,8 @@ services:
         class:  Symfony\Component\Console\Application
         public: true
         calls:
-            - [add, ["@command.speak"]]
+            - [add,               ["@command.speak"]]
+            - [setDefaultCommand, [speak, true]]
 
     cache:
         alias: cache.filesystem

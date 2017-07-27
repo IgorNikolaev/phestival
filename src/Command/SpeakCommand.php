@@ -55,7 +55,7 @@ class SpeakCommand extends Command
     protected function configure()
     {
         $this->setDefinition([
-            new InputOption('silent', 's', InputOption::VALUE_NONE, 'Do not speak'),
+            new InputOption('silent', 's', InputOption::VALUE_NONE, 'Do not speak, just display the speech'),
         ]);
     }
 
