@@ -55,7 +55,7 @@ class TimeProvider implements ProviderInterface
         $hours   = $this->getHours();
         $minutes = $this->getMinutes();
 
-        return $this->translator->trans('provider.time.text', [
+        return $this->translator->trans('provider.time.speech', [
             '%hours%'   => $hours,
             '%minutes%' => $minutes,
         ]);

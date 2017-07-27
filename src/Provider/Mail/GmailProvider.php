@@ -140,7 +140,7 @@ class GmailProvider implements ProviderInterface
             return $this->translator->trans('provider.mail.gmail.new.empty');
         }
 
-        return $this->translator->trans('provider.mail.gmail.new.text', [
+        return $this->translator->trans('provider.mail.gmail.new.speech', [
             '%count%' => trim($this->translator->transChoice('provider.mail.gmail.new.count', $count, [
                 '%number%' => 1 !== $count ? $this->neuterNumberFormatter->format($count) : '',
             ])),
@@ -154,7 +154,7 @@ class GmailProvider implements ProviderInterface
      */
     private function translateUnread(int $count): string
     {
-        return $this->translator->trans('provider.mail.gmail.unread.text', [
+        return $this->translator->trans('provider.mail.gmail.unread.speech', [
             '%count%' => $this->translator->transChoice('provider.mail.gmail.unread.count', $count, [
                 '%number%' => $this->neuterNumberFormatter->format($count),
             ]),

@@ -3,4 +3,4 @@ provider:
         exactly: "o'clock"
         hours:   "%number% hour | %number% hours | %number% hours"
         minutes: "%number% minute | %number% minutes | %number% minutes"
-        text:    "Time is %hours% %minutes%."
+        speech:  "Time is %hours% %minutes%."

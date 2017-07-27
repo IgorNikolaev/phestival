@@ -2,17 +2,17 @@ provider:
     mail:
         gmail:
             new:
-                count: "%number% н+овое письм+о | %number% н+овых письм+а | %number% н+овых п+исем"
-                empty: Н+овых п+исем нет.
-                text:  "У вас %count%."
+                count:  "%number% н+овое письм+о | %number% н+овых письм+а | %number% н+овых п+исем"
+                empty:  Н+овых п+исем нет.
+                speech: "У вас %count%."
             unread:
-                count: "%number% непроч+итанное письм+о | %number% непроч+итанных письм+а | %number% непроч+итанных п+исем"
-                text:  "Всев+о %count%."
+                count:  "%number% непроч+итанное письм+о | %number% непроч+итанных письм+а | %number% непроч+итанных п+исем"
+                speech: "Всев+о %count%."
     time:
         exactly: р+овно
         hours:   "%number% час | %number% час+а | %number% час+ов"
         minutes: "%number% мин+ута | %number% мин+уты | %number% мин+ут"
-        text:    "Вр+емя %hours% %minutes%."
+        speech:  "Вр+емя %hours% %minutes%."
     weather:
         owm:
             condition:
@@ -98,8 +98,8 @@ provider:
                 960: шторм
                 961: с+ильный шторм
                 962: ураг+ан
+            speech:      "На +улице %condition% в+етер %wind% температ+ура %temperature%."
             temperature: "%number% гр+адус | %number% гр+адуса | %number% гр+адусов"
-            text:        "На +улице %condition% в+етер %wind% температ+ура %temperature%."
             wind:
                 direction:
                     n:  с+еверный
@@ -110,5 +110,5 @@ provider:
                     sw: юго-з+ападный
                     w:  з+ападный
                     nw: северо-з+ападный
-                speed: "%number% метр в сек+унду | %number% м+етра в сек+унду | %number% м+етров в сек+унду"
-                text:  "%direction% %speed%"
+                speech: "%direction% %speed%"
+                speed:  "%number% метр в сек+унду | %number% м+етра в сек+унду | %number% м+етров в сек+унду"

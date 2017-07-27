@@ -48,7 +48,7 @@ class ProviderPool
     /**
      * @return string
      */
-    public function getText(): string
+    public function getSpeech(): string
     {
         $parts = [];
 

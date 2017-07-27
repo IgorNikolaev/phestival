@@ -68,13 +68,13 @@ class SpeakCommand extends Command
 
         $silent = $input->getOption('silent');
 
-        $text = $this->providerPool->getText();
+        $speech = $this->providerPool->getSpeech();
 
         if ($silent || $io->isVerbose()) {
-            $io->comment($text);
+            $io->comment($speech);
         }
         if (!$silent) {
-            $this->speaker->speak($text);
+            $this->speaker->speak($speech);
         }
     }
 }

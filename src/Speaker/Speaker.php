@@ -70,12 +70,12 @@ class Speaker
     }
 
     /**
-     * @param string $text Text to speak
+     * @param string $speech Speech
      */
-    public function speak(string $text)
+    public function speak(string $speech)
     {
-        if (!empty($text)) {
-            $this->createTmpFile()->synthesize($text)->play()->cleanup();
+        if (!empty($speech)) {
+            $this->createTmpFile()->synthesize($speech)->play()->cleanup();
         }
     }
 
@@ -90,15 +90,15 @@ class Speaker
     }
 
     /**
-     * @param string $text Text to speak
+     * @param string $speech Speech
      *
      * @return self
      */
-    private function synthesize(string $text)
+    private function synthesize(string $speech)
     {
         $command = strtr($this->synthesizeCommand, [
-            '{TEXT}' => $text,
-            '{FILE}' => $this->tmpFilePathname,
+            '{SPEECH}' => $speech,
+            '{FILE}'   => $this->tmpFilePathname,
         ]);
 
         (new Process($command))->mustRun();

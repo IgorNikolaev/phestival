@@ -3,8 +3,8 @@ parameters:
     locale: ru
     # HTTP client timeout in seconds
     http_client_timeout: 3
-    # Speech synthesize command ("{TEXT}" - text to speak, "{FILE}" - output file pathname)
-    synthesize_command: "echo '{TEXT}' | text2wave -eval '(voice_msu_ru_nsh_clunits)' -o {FILE} -scale 3"
+    # Speech synthesize command ("{SPEECH}" - speech, "{FILE}" - output file pathname)
+    synthesize_command: "echo '{SPEECH}' | text2wave -eval '(voice_msu_ru_nsh_clunits)' -o {FILE} -scale 3"
     # Play command ("{FILE}" - pathname of file to play)
     play_command: "aplay {FILE}"
     # Enabled providers

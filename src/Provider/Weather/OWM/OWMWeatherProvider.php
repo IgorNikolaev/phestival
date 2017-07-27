@@ -86,7 +86,7 @@ class OWMWeatherProvider implements ProviderInterface
 
         $response = $this->createResponse($data);
 
-        return $this->translator->trans('provider.weather.owm.text', [
+        return $this->translator->trans('provider.weather.owm.speech', [
             '%condition%'   => $this->translateCondition($response->getWeather()),
             '%wind%'        => $this->translateWind($response->getWind()),
             '%temperature%' => $this->translateTemperature($response->getMain()),
@@ -126,7 +126,7 @@ class OWMWeatherProvider implements ProviderInterface
     {
         $speed = $wind->getSpeed();
 
-        return $this->translator->trans('provider.weather.owm.wind.text', [
+        return $this->translator->trans('provider.weather.owm.wind.speech', [
             '%direction%' => $this->translator->trans('provider.weather.owm.wind.direction.'.$wind->getDirection()),
             '%speed%'     => $this->translator->transChoice('provider.weather.owm.wind.speed', $speed, [
                 '%number%' => $this->masculineNumberFormatter->format($speed),
