@@ -1,5 +1,7 @@
 /.idea/
-/cache/
+/cache/*
+!cache/.gitkeep
 /config/parameters.yml
-/logs/
+/logs/*
+!logs/.gitkeep
 /vendor/
