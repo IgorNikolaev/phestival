@@ -53,13 +53,22 @@ services:
             - "%locale%"
             - !php/const:NumberFormatter::SPELLOUT
 
+    number_formatter.neuter:
+        parent: number_formatter.masculine
+        public: false
+        calls:
+            - [setTextAttribute, [!php/const:NumberFormatter::DEFAULT_RULESET, "%spellout-cardinal-neuter"]]
+
     provider_pool:
         class: Phestival\Provider\ProviderPool
 
     provider.mail.gmail:
         class: Phestival\Provider\Mail\Gmail\GmailProvider
         arguments:
+            - "@cache"
             - "@http_client"
+            - "@number_formatter.neuter"
+            - "@translator"
             - "%gmail_feed_uri%"
             - "%gmail_username%"
             - "%gmail_password%"
