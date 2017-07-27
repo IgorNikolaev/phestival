@@ -58,6 +58,11 @@ services:
 
     provider.mail.gmail:
         class: Phestival\Provider\Mail\Gmail\GmailProvider
+        arguments:
+            - "@http_client"
+            - "%gmail_feed_uri%"
+            - "%gmail_username%"
+            - "%gmail_password%"
 
     provider.time:
         class: Phestival\Provider\TimeProvider

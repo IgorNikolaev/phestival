@@ -3,11 +3,17 @@ parameters:
     locale: ru
     # HTTP client timeout in seconds
     http_client_timeout: 3
-    # OpenWeatherMap current weather data API URI (see https://openweathermap.org/current)
-    owm_current_weather_uri: http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a1
-    # Enabled providers
-    providers: [ time, weather.owm, mail.gmail ]
     # Speech synthesize command ("{TEXT}" - text to speak, "{FILE}" - output file pathname)
     synthesize_command: "echo '{TEXT}' | text2wave -eval '(voice_msu_ru_nsh_clunits)' -o {FILE} -scale 2"
     # Play command ("{FILE}" - pathname of file to play)
     play_command: "paplay {FILE}"
+    # Enabled providers
+    providers: [ time, weather.owm, mail.gmail ]
+    # Gmail Atom feed URI
+    gmail_feed_uri: https://mail.google.com/mail/feed/atom
+    # Gmail account username
+    gmail_username: igor.sv.n@gmail.com
+    # Gmail account app password
+    gmail_password: secret
+    # OpenWeatherMap current weather data API URI (see https://openweathermap.org/current)
+    owm_current_weather_uri: http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a1

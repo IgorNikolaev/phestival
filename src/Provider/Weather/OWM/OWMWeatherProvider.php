@@ -80,7 +80,7 @@ class OWMWeatherProvider implements ProviderInterface
 
         if (null === $data) {
             throw new \RuntimeException(
-                sprintf('Unable to decode response as JSON: "%s" (response: "%s").', json_last_error_msg(), $json)
+                sprintf('Unable to parse response as JSON: "%s" (response: "%s").', json_last_error_msg(), $json)
             );
         }
 
