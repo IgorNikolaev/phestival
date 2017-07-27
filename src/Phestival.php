@@ -140,6 +140,7 @@ class Phestival
         foreach ([
             'project_dir' => $this->projectDir,
             'cache_dir'   => $this->cacheDir,
+            'debug'       => $this->debug,
         ] as $name => $value) {
             $container->setParameter($name, $value);
         }
