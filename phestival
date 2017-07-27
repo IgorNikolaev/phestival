@@ -13,4 +13,11 @@ require __DIR__.'/vendor/autoload.php';
 
 use Phestival\Phestival;
 
-(new Phestival(__DIR__))->run(array_merge($argv, ['speak']));
+$key = array_search('--debug', $argv);
+$debug = false !== $key;
+
+if ($debug) {
+    unset($argv[$key]);
+}
+
+(new Phestival($argv, $debug, __DIR__))->run();

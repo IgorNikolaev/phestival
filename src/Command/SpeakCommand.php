@@ -34,15 +34,18 @@ class SpeakCommand extends Command
 
     /**
      * @param string                           $name         Command name
+     * @param string                           $description  Command description
      * @param \Phestival\Provider\ProviderPool $providerPool Provider pool
      * @param \Phestival\Speaker\Speaker       $speaker      Speaker
      */
-    public function __construct(string $name, ProviderPool $providerPool, Speaker $speaker)
+    public function __construct(string $name, string $description, ProviderPool $providerPool, Speaker $speaker)
     {
         parent::__construct($name);
 
         $this->providerPool = $providerPool;
         $this->speaker = $speaker;
+
+        $this->setDescription($description);
     }
 
     /**

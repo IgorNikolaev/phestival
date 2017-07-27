@@ -28,81 +28,76 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 class Phestival
 {
     /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     * @var array
+     */
+    private $argv;
+
+    /**
+     * @var bool
+     */
+    private $debug;
+
+    /**
+     * @var string
+     */
+    private $projectDir;
+
+    /**
+     * @var string
+     */
+    private $cacheDir;
+
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface|null
      */
     private $container;
 
     /**
-     * @var \Symfony\Component\Console\Application
+     * @var \Symfony\Component\Console\Application|null
      */
     private $app;
 
     /**
+     * @param array  $argv       An array of parameters from the CLI (in the argv format)
+     * @param bool   $debug      Is debug enabled
      * @param string $projectDir Project directory
      */
-    public function __construct(string $projectDir)
+    public function __construct(array $argv, bool $debug, string $projectDir)
     {
-        $this->container = $this->getContainer($projectDir);
+        $this->argv = $argv;
+        $this->debug = $debug;
+        $this->projectDir = $projectDir;
 
-        $this->app = new Application();
-        $this->app->add($this->getSpeakCommand());
+        $this->cacheDir = $projectDir.'/cache';
+        $this->container = $this->app = null;
+    }
+
+    public function run()
+    {
+        $this->getApp()->run(new ArgvInput($this->argv));
     }
 
     /**
-     * @param array $argv An array of parameters from the CLI (in the argv format)
+     * @return \Symfony\Component\Console\Application
      */
-    public function run(array $argv)
+    private function getApp()
     {
-        $this->app->run(new ArgvInput($argv));
-    }
-
-    /**
-     * @param string $projectDir Project directory
-     *
-     * @return \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    private function getContainer(string $projectDir): ContainerInterface
-    {
-        $cacheDir = $projectDir.'/cache';
-
-        $cache = new ConfigCache($cacheDir.'/container.php', false);
-
-        if (!$cache->isFresh()) {
-            $container = $this->buildContainer($projectDir, $cacheDir);
-
-            $cache->write((new PhpDumper($container))->dump(), $container->getResources());
+        if (empty($this->app)) {
+            $this->app = $this->buildApp();
         }
 
-        require_once $cache->getPath();
-
-        return new \ProjectServiceContainer();
+        return $this->app;
     }
 
     /**
-     * @param string $projectDir Project directory
-     * @param string $cacheDir   Cache directory
-     *
-     * @return \Symfony\Component\DependencyInjection\ContainerBuilder
+     * @return \Symfony\Component\Console\Application
      */
-    private function buildContainer(string $projectDir, string $cacheDir): ContainerBuilder
+    private function buildApp()
     {
-        $container = new ContainerBuilder();
+        $app = new Application();
+        $app->add($this->getSpeakCommand());
 
-        foreach ([
-            'project_dir' => $projectDir,
-            'cache_dir'   => $cacheDir,
-        ] as $name => $value) {
-            $container->setParameter($name, $value);
-        }
-
-        (new YamlFileLoader($container, new FileLocator($projectDir.'/config')))->load('services.yml');
-
-        $container
-            ->addCompilerPass(new AddProvidersToPoolPass())
-            ->addCompilerPass(new AddResourcesToTranslatorPass($projectDir))
-            ->compile();
-
-        return $container;
+        return $app;
     }
 
     /**
@@ -110,6 +105,52 @@ class Phestival
      */
     private function getSpeakCommand(): Command
     {
-        return $this->container->get('command.speak');
+        return $this->getContainer()->get('command.speak');
+    }
+
+    /**
+     * @return \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    private function getContainer(): ContainerInterface
+    {
+        if (empty($this->container)) {
+            $cache = new ConfigCache($this->cacheDir.'/container.php', $this->debug);
+
+            if (!$cache->isFresh()) {
+                $container = $this->buildContainer();
+
+                $cache->write((new PhpDumper($container))->dump(), $container->getResources());
+            }
+
+            require_once $cache->getPath();
+
+            $this->container = new \ProjectServiceContainer();
+        }
+
+        return $this->container;
+    }
+
+    /**
+     * @return \Symfony\Component\DependencyInjection\ContainerBuilder
+     */
+    private function buildContainer(): ContainerBuilder
+    {
+        $container = new ContainerBuilder();
+
+        foreach ([
+            'project_dir' => $this->projectDir,
+            'cache_dir'   => $this->cacheDir,
+        ] as $name => $value) {
+            $container->setParameter($name, $value);
+        }
+
+        (new YamlFileLoader($container, new FileLocator($this->projectDir.'/config')))->load('services.yml');
+
+        $container
+            ->addCompilerPass(new AddProvidersToPoolPass())
+            ->addCompilerPass(new AddResourcesToTranslatorPass($this->projectDir))
+            ->compile();
+
+        return $container;
     }
 }

@@ -20,6 +20,7 @@ services:
         public: true
         arguments:
             - speak
+            - Speaks some useful info
             - "@provider_pool"
             - "@speaker"
 
