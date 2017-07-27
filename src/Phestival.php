@@ -49,6 +49,14 @@ class Phestival
     }
 
     /**
+     * @param array $argv An array of parameters from the CLI (in the argv format)
+     */
+    public function run(array $argv)
+    {
+        $this->app->run(new ArgvInput($argv));
+    }
+
+    /**
      * @param string $projectDir Project directory
      *
      * @return \Symfony\Component\DependencyInjection\ContainerInterface
@@ -95,14 +103,6 @@ class Phestival
             ->compile();
 
         return $container;
-    }
-
-    /**
-     * @param array $argv An array of parameters from the CLI (in the argv format)
-     */
-    public function run(array $argv)
-    {
-        $this->app->run(new ArgvInput($argv));
     }
 
     /**
