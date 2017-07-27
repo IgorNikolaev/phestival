@@ -83,7 +83,7 @@ services:
         arguments:
             - "%locale%"
             - ~
-            - "%cache_dir%"
+            - "%cache_dir%/translator"
         calls:
             - [addLoader, [yml, "@translator.file_loader"]]
 
