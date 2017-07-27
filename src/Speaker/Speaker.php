@@ -62,7 +62,9 @@ class Speaker
      */
     public function speak(string $text)
     {
-        $this->createTmpFile()->synthesize($text)->play()->cleanup();
+        if (!empty($text)) {
+            $this->createTmpFile()->synthesize($text)->play()->cleanup();
+        }
     }
 
     /**

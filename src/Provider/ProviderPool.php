@@ -47,6 +47,6 @@ class ProviderPool
             $parts[] = $provider->get();
         }
 
-        return implode(' ', $parts);
+        return trim(implode(' ', $parts));
     }
 }
