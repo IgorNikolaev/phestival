@@ -21,6 +21,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class GmailProvider implements ProviderInterface
 {
+    const CACHE_KEY_UNREAD = 'provider.mail.gmail.unread';
+
     /**
      * @var \Psr\SimpleCache\CacheInterface
      */
@@ -111,15 +113,37 @@ class GmailProvider implements ProviderInterface
             );
         }
 
-        $count = (int) $xml['fullcount'];
-        $previous = $this->cache->get('mail.gmail.count', 0);
+        $unread = (int) $xml['fullcount'];
 
-        if ($count === $previous) {
-            return $this->translator->trans('provider.mail.gmail.empty');
+        $wasUnread = $this->cache->get(self::CACHE_KEY_UNREAD, 0);
+        $this->cache->set(self::CACHE_KEY_UNREAD, $unread);
+
+        $new = $unread > $wasUnread ? $unread - $wasUnread : 0;
+
+        $parts = [$this->translateNew($new)];
+
+        if ($unread !== $new) {
+            $parts[] = $this->translateUnread($unread);
         }
 
-        return $this->translator->trans('provider.mail.gmail.text', [
-            '%count%' => $this->translateCount($count - $previous),
+        return implode(' ', $parts);
+    }
+
+    /**
+     * @param int $count Count
+     *
+     * @return string
+     */
+    private function translateNew(int $count): string
+    {
+        if (0 === $count) {
+            return $this->translator->trans('provider.mail.gmail.new.empty');
+        }
+
+        return $this->translator->trans('provider.mail.gmail.new.text', [
+            '%count%' => trim($this->translator->transChoice('provider.mail.gmail.new.count', $count, [
+                '%number%' => 1 !== $count ? $this->neuterNumberFormatter->format($count) : '',
+            ])),
         ]);
     }
 
@@ -128,10 +152,12 @@ class GmailProvider implements ProviderInterface
      *
      * @return string
      */
-    private function translateCount(int $count): string
+    private function translateUnread(int $count): string
     {
-        return $this->translator->transChoice('provider.mail.gmail.count', $count, [
-            '%number%' => $this->neuterNumberFormatter->format($count),
+        return $this->translator->trans('provider.mail.gmail.unread.text', [
+            '%count%' => $this->translator->transChoice('provider.mail.gmail.unread.count', $count, [
+                '%number%' => $this->neuterNumberFormatter->format($count),
+            ]),
         ]);
     }
 }
