@@ -1,0 +1,3 @@
+# m h dom mon dow command
+0 6-20 * * 1-5 /usr/bin/env php /home/igor/phestival/phestival speak --no-debug > /dev/null 2>&1
+0 8-20 * * 6-7 /usr/bin/env php /home/igor/phestival/phestival speak --no-debug > /dev/null 2>&1
