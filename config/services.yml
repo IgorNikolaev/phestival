@@ -13,7 +13,7 @@ services:
         arguments:
             - ""
             - 0
-            - "%project_dir%/cache"
+            - "%cache_dir%"
 
     command.speak:
         class:  Phestival\Command\SpeakCommand
@@ -82,6 +82,8 @@ services:
         class: Symfony\Component\Translation\Translator
         arguments:
             - "%locale%"
+            - ~
+            - "%cache_dir%"
         calls:
             - [addLoader, [yml, "@translator.file_loader"]]
 

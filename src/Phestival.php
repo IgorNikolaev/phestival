@@ -41,6 +41,7 @@ class Phestival
     {
         $this->container = new ContainerBuilder();
         $this->container->setParameter('project_dir', $projectDir);
+        $this->container->setParameter('cache_dir', $projectDir.'/cache');
         (new YamlFileLoader($this->container, new FileLocator($projectDir.'/config')))->load('services.yml');
         $this->container
             ->addCompilerPass(new AddProvidersToPoolPass())
