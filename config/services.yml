@@ -5,6 +5,12 @@ services:
     _defaults:
         public: false
 
+    app:
+        class:  Symfony\Component\Console\Application
+        public: true
+        calls:
+            - [add, ["@command.speak"]]
+
     cache:
         alias: cache.filesystem
 
@@ -16,8 +22,7 @@ services:
             - "%cache_dir%"
 
     command.speak:
-        class:  Phestival\Command\SpeakCommand
-        public: true
+        class: Phestival\Command\SpeakCommand
         arguments:
             - speak
             - Speaks some useful info

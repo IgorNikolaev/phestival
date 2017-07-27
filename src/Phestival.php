@@ -15,7 +15,6 @@ use Phestival\DependencyInjection\Compiler\AddResourcesToTranslatorPass;
 use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -53,11 +52,6 @@ class Phestival
     private $container;
 
     /**
-     * @var \Symfony\Component\Console\Application|null
-     */
-    private $app;
-
-    /**
      * @param array  $argv       An array of parameters from the CLI (in the argv format)
      * @param bool   $debug      Is debug enabled
      * @param string $projectDir Project directory
@@ -69,7 +63,7 @@ class Phestival
         $this->projectDir = $projectDir;
 
         $this->cacheDir = $projectDir.'/cache';
-        $this->container = $this->app = null;
+        $this->container = null;
     }
 
     /**
@@ -83,32 +77,9 @@ class Phestival
     /**
      * @return \Symfony\Component\Console\Application
      */
-    private function getApp()
+    private function getApp(): Application
     {
-        if (empty($this->app)) {
-            $this->app = $this->buildApp();
-        }
-
-        return $this->app;
-    }
-
-    /**
-     * @return \Symfony\Component\Console\Application
-     */
-    private function buildApp()
-    {
-        $app = new Application();
-        $app->add($this->getSpeakCommand());
-
-        return $app;
-    }
-
-    /**
-     * @return \Symfony\Component\Console\Command\Command
-     */
-    private function getSpeakCommand(): Command
-    {
-        return $this->getContainer()->get('command.speak');
+        return $this->getContainer()->get('app');
     }
 
     /**
