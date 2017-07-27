@@ -16,6 +16,7 @@ use Symfony\Component\Config\ConfigCache;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Debug\Debug;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
@@ -57,6 +58,10 @@ class Phestival
 
         $this->cacheDir = $projectDir.'/cache';
         $this->container = null;
+
+        if ($debug) {
+            Debug::enable();
+        }
     }
 
     /**
