@@ -13,6 +13,9 @@ services:
             - "@provider_pool"
             - "@speaker"
 
+    filesystem:
+        class: Symfony\Component\Filesystem\Filesystem
+
     http_client:
         class: GuzzleHttp\Client
         arguments:
@@ -61,7 +64,9 @@ services:
     speaker:
         class: Phestival\Speaker\Speaker
         arguments:
-            - "%language%"
+            - "@filesystem"
+            - "%play_command%"
+            - "%synthesize_command%"
 
     translator:
         class: Symfony\Component\Translation\Translator
