@@ -34,6 +34,11 @@ class Speaker
     private $synthesizeCommand;
 
     /**
+     * @var string
+     */
+    private $tmpFileDir;
+
+    /**
      * @var string|null
      */
     private $tmpFilePathname;
@@ -42,12 +47,14 @@ class Speaker
      * @param \Symfony\Component\Filesystem\Filesystem $filesystem        Filesystem
      * @param string                                   $playCommand       Play command
      * @param string                                   $synthesizeCommand Speech synthesize command
+     * @param string                                   $tmpFileDir        Directory for storing temporary files
      */
-    public function __construct(Filesystem $filesystem, string $playCommand, string $synthesizeCommand)
+    public function __construct(Filesystem $filesystem, string $playCommand, string $synthesizeCommand, string $tmpFileDir)
     {
         $this->filesystem = $filesystem;
         $this->playCommand = $playCommand;
         $this->synthesizeCommand = $synthesizeCommand;
+        $this->tmpFileDir = $tmpFileDir;
 
         $this->tmpFilePathname = null;
     }
@@ -72,7 +79,7 @@ class Speaker
      */
     private function createTmpFile()
     {
-        $this->tmpFilePathname = $this->filesystem->tempnam(sys_get_temp_dir(), 'phestival');
+        $this->tmpFilePathname = $this->filesystem->tempnam($this->tmpFileDir, 'speaker');
 
         return $this;
     }
