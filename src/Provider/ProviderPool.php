@@ -44,7 +44,10 @@ class ProviderPool
         $parts = [];
 
         foreach ($this->providers as $provider) {
-            $parts[] = $provider->get();
+            try {
+                $parts[] = $provider->get();
+            } catch (\Exception $ex) {
+            }
         }
 
         return trim(implode(' ', $parts));
