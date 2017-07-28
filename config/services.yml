@@ -49,7 +49,7 @@ services:
         class: Katzgrau\KLogger\Logger
         arguments:
             - "%project_dir%/logs"
-            - !php/const:Psr\Log\LogLevel::WARNING
+            - !php/const:Psr\Log\LogLevel::INFO
             - { filename: log }
 
     number_formatter.feminine:
@@ -98,8 +98,10 @@ services:
         arguments:
             - "@http_client"
             - "@json_mapper"
+            - "@logger"
             - "@number_formatter.masculine"
             - "@translator"
+            - "%debug%"
             - "%owm_current_weather_uri%"
 
     speaker:
