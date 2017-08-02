@@ -85,18 +85,18 @@ provider:
                 904: жар+а # hot
                 905: в+етрено # windy
                 906: град # hail
-                # Additional
+                # Additional (http://flot.com/publications/books/shelf/signalman/62.htm)
                 951: штиль # calm
-                952: лёгкий бриз # light breeze
-                953: м+ягкий бриз # gentle breeze
-                954: ум+еренный бриз # moderate breeze
-                955: св+ежий бриз # fresh breeze
-                956: с+ильный бриз # strong breeze
-                957: с+ильный в+етер почт+и б+уря # high wind, near gale
-                958: б+уря # gale
-                959: с+ильная б+уря # severe gale
-                960: шторм # storm
-                961: с+ильный шторм # violent storm
+                952: лёгкий в+етер # light breeze
+                953: сл+абый в+етер # gentle breeze
+                954: ум+еренный в+етер # moderate breeze
+                955: св+ежий в+етер # fresh breeze
+                956: с+ильный в+етер # strong breeze
+                957: кр+епкий в+етер # high wind, near gale
+                958: +очень кр+епкий в+етер # gale
+                959: шторм # severe gale
+                960: с+ильный шторм # storm
+                961: жёсткий шторм # violent storm
                 962: ураг+ан # hurricane
             speech:      "На +улице %condition% в+етер %wind% температ+ура %temperature%."
             temperature: "%number% гр+адус | %number% гр+адуса | %number% гр+адусов"
