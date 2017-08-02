@@ -9,8 +9,8 @@ services:
         class:  Phestival\Console\Application
         public: true
         calls:
-            - [add,               ["@command.speak"]]
-            - [setDefaultCommand, [speak, true]]
+            - [ add,               [ "@command.speak" ] ]
+            - [ setDefaultCommand, [ speak, true ] ]
 
     cache:
         alias: cache.filesystem
@@ -56,7 +56,7 @@ services:
         parent: number_formatter.masculine
         public: false
         calls:
-            - [setTextAttribute, [!php/const:NumberFormatter::DEFAULT_RULESET, "%spellout-cardinal-feminine"]]
+            - [ setTextAttribute, [ !php/const:NumberFormatter::DEFAULT_RULESET, "%spellout-cardinal-feminine" ] ]
 
     number_formatter.masculine:
         class: NumberFormatter
@@ -68,7 +68,7 @@ services:
         parent: number_formatter.masculine
         public: false
         calls:
-            - [setTextAttribute, [!php/const:NumberFormatter::DEFAULT_RULESET, "%spellout-cardinal-neuter"]]
+            - [ setTextAttribute, [ !php/const:NumberFormatter::DEFAULT_RULESET, "%spellout-cardinal-neuter" ] ]
 
     provider_pool:
         class: Phestival\Provider\ProviderPool
@@ -120,7 +120,7 @@ services:
             - "%cache_dir%/translator"
             - "%debug%"
         calls:
-            - [addLoader, [yml, "@translator.file_loader"]]
+            - [ addLoader, [ yml, "@translator.file_loader" ] ]
 
     translator.file_loader:
         class: Symfony\Component\Translation\Loader\YamlFileLoader
