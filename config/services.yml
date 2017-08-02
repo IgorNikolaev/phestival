@@ -120,7 +120,4 @@ services:
             - "%cache_dir%/translator"
             - "%debug%"
         calls:
-            - [ addLoader, [ yml, "@translator.file_loader" ] ]
-
-    translator.file_loader:
-        class: Symfony\Component\Translation\Loader\YamlFileLoader
+            - [ addLoader, [ yml, !service { class: Symfony\Component\Translation\Loader\YamlFileLoader } ] ]
