@@ -74,7 +74,7 @@ provider:
                 800: +ясно # clear sky
                 # Clouds
                 801: мало+облачно # few clouds
-                802: +облачно # scattered clouds
+                802: +облачно с проясн+ениями # scattered clouds
                 803: +облачно # broken clouds
                 804: т+учи # overcast clouds
                 # Extreme
