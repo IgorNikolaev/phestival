@@ -16,6 +16,7 @@ use Phestival\Provider\Weather\OWM\Response\Main;
 use Phestival\Provider\Weather\OWM\Response\Response;
 use Phestival\Provider\Weather\OWM\Response\Weather;
 use Phestival\Provider\Weather\OWM\Response\Wind;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -34,6 +35,11 @@ class OWMWeatherProvider implements ProviderInterface
     private $jsonMapper;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @var \NumberFormatter
      */
     private $masculineNumberFormatter;
@@ -44,6 +50,11 @@ class OWMWeatherProvider implements ProviderInterface
     private $translator;
 
     /**
+     * @var bool
+     */
+    private $debug;
+
+    /**
      * @var string
      */
     private $uri;
@@ -51,21 +62,27 @@ class OWMWeatherProvider implements ProviderInterface
     /**
      * @param \GuzzleHttp\ClientInterface                        $httpClient               HTTP client
      * @param \JsonMapper                                        $jsonMapper               JSON mapper
+     * @param \Psr\Log\LoggerInterface                           $logger                   Logger
      * @param \NumberFormatter                                   $masculineNumberFormatter Masculine number formatter
      * @param \Symfony\Component\Translation\TranslatorInterface $translator               Translator
+     * @param bool                                               $debug                    Is debug enabled
      * @param string                                             $uri                      OpenWeatherMap current weather data API URI
      */
     public function __construct(
         ClientInterface $httpClient,
         \JsonMapper $jsonMapper,
+        LoggerInterface $logger,
         \NumberFormatter $masculineNumberFormatter,
         TranslatorInterface $translator,
+        bool $debug,
         string $uri
     ) {
         $this->httpClient = $httpClient;
         $this->jsonMapper = $jsonMapper;
+        $this->logger = $logger;
         $this->masculineNumberFormatter = $masculineNumberFormatter;
         $this->translator = $translator;
+        $this->debug = $debug;
         $this->uri = $uri;
     }
 
@@ -82,6 +99,12 @@ class OWMWeatherProvider implements ProviderInterface
             throw new \RuntimeException(
                 sprintf('Unable to parse response as JSON: "%s" (response: "%s").', json_last_error_msg(), $json)
             );
+        }
+        if ($this->debug) {
+            $this->logger->info($json, [
+                'class'  => get_class($this),
+                'method' => __FUNCTION__,
+            ]);
         }
 
         $response = $this->createResponse($data);
