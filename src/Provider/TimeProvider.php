@@ -33,18 +33,34 @@ class TimeProvider implements ProviderInterface
     private $translator;
 
     /**
+     * @var string
+     */
+    private $hoursFormat;
+
+    /**
+     * @var string
+     */
+    private $minutesFormat;
+
+    /**
      * @param \NumberFormatter                                   $feminineNumberFormatter  Feminine number formatter
      * @param \NumberFormatter                                   $masculineNumberFormatter Masculine number formatter
      * @param \Symfony\Component\Translation\TranslatorInterface $translator               Translator
+     * @param string                                             $hoursFormat              Hours format
+     * @param string                                             $minutesFormat            Minutes format
      */
     public function __construct(
         \NumberFormatter $feminineNumberFormatter,
         \NumberFormatter $masculineNumberFormatter,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        $hoursFormat,
+        $minutesFormat
     ) {
         $this->feminineNumberFormatter = $feminineNumberFormatter;
         $this->masculineNumberFormatter = $masculineNumberFormatter;
         $this->translator = $translator;
+        $this->hoursFormat = $hoursFormat;
+        $this->minutesFormat = $minutesFormat;
     }
 
     /**
@@ -66,7 +82,7 @@ class TimeProvider implements ProviderInterface
      */
     private function getHours(): string
     {
-        $number = (int) (new \DateTimeImmutable())->format('G');
+        $number = (int) (new \DateTimeImmutable())->format($this->hoursFormat);
 
         return $this->translator->transChoice('provider.time.hours', $number, [
             '%number%' => $this->masculineNumberFormatter->format($number),
@@ -78,7 +94,7 @@ class TimeProvider implements ProviderInterface
      */
     private function getMinutes(): string
     {
-        $number = (int) (new \DateTimeImmutable())->format('i');
+        $number = (int) (new \DateTimeImmutable())->format($this->minutesFormat);
 
         return 0 === $number
             ? $this->translator->trans('provider.time.exactly')

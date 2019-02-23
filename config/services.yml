@@ -92,6 +92,8 @@ services:
             - "@number_formatter.feminine"
             - "@number_formatter.masculine"
             - "@translator"
+            - "%time_format_hours%"
+            - "%time_format_minutes%"
 
     provider.weather.owm:
         class: Phestival\Provider\Weather\OWM\OWMWeatherProvider
