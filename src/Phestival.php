@@ -112,6 +112,7 @@ class Phestival
         foreach ([
             'project_dir' => $this->projectDir,
             'cache_dir'   => $this->cacheDir,
+            'tmp_dir'     => implode(DIRECTORY_SEPARATOR, [sys_get_temp_dir(), 'phestival']),
             'debug'       => $this->debug,
         ] as $name => $value) {
             $container->setParameter($name, $value);

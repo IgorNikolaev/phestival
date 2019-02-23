@@ -112,7 +112,7 @@ services:
             - "@filesystem"
             - "%play_command%"
             - "%synthesize_command%"
-            - "%cache_dir%"
+            - "%tmp_dir%"
 
     translator:
         class: Symfony\Component\Translation\Translator

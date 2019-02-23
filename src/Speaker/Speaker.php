@@ -84,6 +84,8 @@ class Speaker
      */
     private function createTmpFile()
     {
+        $this->filesystem->mkdir($this->tmpFileDir);
+
         $this->tmpFilePathname = $this->filesystem->tempnam($this->tmpFileDir, 'speaker');
 
         return $this;
