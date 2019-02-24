@@ -53,38 +53,25 @@ class RuTimeProvider implements ProviderInterface
      */
     public function get(): string
     {
-        $hours   = $this->getHours();
-        $minutes = $this->getMinutes();
-
         return $this->translator->trans('provider.time.ru.speech', [
-            '%hours%'   => $hours,
-            '%minutes%' => $minutes,
+            '%time%' => $this->getTime(),
         ]);
     }
 
     /**
      * @return string
      */
-    private function getHours(): string
+    private function getTime(): string
     {
-        $number = (int)(new \DateTimeImmutable())->format('g');
+        $now = new \DateTimeImmutable();
 
-        return $this->translator->transChoice('provider.time.ru.hours', $number, [
-            '%number%' => $this->masculineNumberFormatter->format($number),
-        ]);
-    }
+        $hours   = $this->masculineNumberFormatter->format($now->format('g'));
+        $minutes = $this->feminineNumberFormatter->format($now->format('i'));
 
-    /**
-     * @return string
-     */
-    private function getMinutes(): string
-    {
-        $number = (int)(new \DateTimeImmutable())->format('i');
+        if (0 === (int)$minutes) {
+            return implode(' ', [$hours, $this->translator->trans('provider.time.ru.exactly')]);
+        }
 
-        return 0 === $number
-            ? $this->translator->trans('provider.time.ru.exactly')
-            : $this->translator->transChoice('provider.time.ru.minutes', $number, [
-                '%number%' => $this->feminineNumberFormatter->format($number),
-            ]);
+        return implode(' ', [$hours, $minutes]);
     }
 }

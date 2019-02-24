@@ -16,9 +16,7 @@ provider:
             speech:  "Вр+емя %hours% %minutes%."
         ru:
             exactly: р+овно
-            hours:   "%number% час | %number% час+а | %number% час+ов"
-            minutes: "%number% мин+ута | %number% мин+уты | %number% мин+ут"
-            speech:  "Вр+емя %hours% %minutes%."
+            speech:  "Вр+емя %time%."
     weather:
         owm:
             condition:
