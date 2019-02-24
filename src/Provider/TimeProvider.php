@@ -53,8 +53,8 @@ class TimeProvider implements ProviderInterface
         \NumberFormatter $feminineNumberFormatter,
         \NumberFormatter $masculineNumberFormatter,
         TranslatorInterface $translator,
-        $hoursFormat,
-        $minutesFormat
+        string $hoursFormat,
+        string $minutesFormat
     ) {
         $this->feminineNumberFormatter = $feminineNumberFormatter;
         $this->masculineNumberFormatter = $masculineNumberFormatter;
