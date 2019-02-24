@@ -8,16 +8,12 @@ parameters:
     # Play command ("{FILE}" - pathname of file to play)
     play_command: "aplay {FILE}"
     # Enabled providers
-    providers: [ time.generic, weather.owm, mail.gmail ]
+    providers: [ time.ru, weather.owm, mail.gmail ]
     # Gmail Atom feed URI
     gmail_feed_uri: https://mail.google.com/mail/feed/atom
     # Gmail account username
     gmail_username: igor.sv.n@gmail.com
     # Gmail account app password
     gmail_password: secret
-    # Hours format (see http://php.net/manual/function.date.php)
-    time_format_hours: g
-    # Minutes format (see http://php.net/manual/function.date.php)
-    time_format_minutes: i
     # OpenWeatherMap current weather data API URI (see https://openweathermap.org/current)
     owm_current_weather_uri: http://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b1b15e88fa797225412429c1c50c122a1

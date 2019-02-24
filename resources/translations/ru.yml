@@ -9,10 +9,11 @@ provider:
                 count:  "%number% непроч+итанное письм+о | %number% непроч+итанных письм+а | %number% непроч+итанных п+исем"
                 speech: "Всев+о %count%."
     time:
-        exactly: р+овно
-        hours:   "%number% час | %number% час+а | %number% час+ов"
-        minutes: "%number% мин+ута | %number% мин+уты | %number% мин+ут"
-        speech:  "Вр+емя %hours% %minutes%."
+        common:
+            exactly: р+овно
+            hours:   "%number% час | %number% час+а | %number% час+ов"
+            minutes: "%number% мин+ута | %number% мин+уты | %number% мин+ут"
+            speech:  "Вр+емя %hours% %minutes%."
     weather:
         owm:
             condition:

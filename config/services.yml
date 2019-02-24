@@ -92,8 +92,13 @@ services:
             - "@number_formatter.feminine"
             - "@number_formatter.masculine"
             - "@translator"
-            - "%time_format_hours%"
-            - "%time_format_minutes%"
+            -
+    provider.time.ru:
+        class: Phestival\Provider\Time\RuTimeProvider
+        arguments:
+            - "@number_formatter.feminine"
+            - "@number_formatter.masculine"
+            - "@translator"
 
     provider.weather.owm:
         class: Phestival\Provider\Weather\OWM\OWMWeatherProvider

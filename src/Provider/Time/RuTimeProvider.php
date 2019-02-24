@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 /**
  * @author    Igor Nikolaev <igor.sv.n@gmail.com>
- * @copyright Copyright (c) 2017-2019, Igor Nikolaev
+ * @copyright Copyright (c) 2017, Igor Nikolaev
  * @link      http://www.penguin33.ru
  *
  * For the full copyright and license information, please view the LICENSE
@@ -14,9 +14,9 @@ use Phestival\Provider\ProviderInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Generic time provider
+ * Russian time provider
  */
-class GenericTimeProvider implements ProviderInterface
+class RuTimeProvider implements ProviderInterface
 {
     /**
      * @var \NumberFormatter
@@ -67,7 +67,7 @@ class GenericTimeProvider implements ProviderInterface
      */
     private function getHours(): string
     {
-        $number = (int)(new \DateTimeImmutable())->format('G');
+        $number = (int)(new \DateTimeImmutable())->format('g');
 
         return $this->translator->transChoice('provider.time.common.hours', $number, [
             '%number%' => $this->masculineNumberFormatter->format($number),
