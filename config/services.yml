@@ -74,6 +74,7 @@ services:
         class: Phestival\Provider\ProviderPool
         arguments:
             - "@logger"
+            - "%emphasis_symbol%"
 
     provider.mail.gmail:
         class: Phestival\Provider\Mail\GmailProvider

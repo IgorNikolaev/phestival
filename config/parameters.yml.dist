@@ -1,6 +1,8 @@
 parameters:
     # Translator locale
     locale: ru
+    # Emphasis symbol (empty string to remove)
+    emphasis_symbol: +
     # HTTP client timeout in seconds
     http_client_timeout: 3
     # Speech synthesize command ("{SPEECH}" - speech, "{FILE}" - output file pathname)

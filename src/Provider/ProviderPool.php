@@ -17,10 +17,17 @@ use Psr\Log\LoggerInterface;
  */
 class ProviderPool
 {
+    const EMPHASIS_SYMBOL_DEFAULT = '+';
+
     /**
      * @var \Psr\Log\LoggerInterface
      */
     private $logger;
+
+    /**
+     * @var string
+     */
+    private $emphasisSymbol;
 
     /**
      * @var \Phestival\Provider\ProviderInterface[]
@@ -28,11 +35,13 @@ class ProviderPool
     private $providers;
 
     /**
-     * @param \Psr\Log\LoggerInterface $logger Logger
+     * @param \Psr\Log\LoggerInterface $logger         Logger
+     * @param string                   $emphasisSymbol Emphasis symbol
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(LoggerInterface $logger, string $emphasisSymbol)
     {
         $this->logger = $logger;
+        $this->emphasisSymbol = $emphasisSymbol;
 
         $this->providers = [];
     }
@@ -65,6 +74,12 @@ class ProviderPool
             }
         }
 
-        return trim(implode(' ', $parts));
+        $speech = trim(implode(' ', $parts));
+
+        if (self::EMPHASIS_SYMBOL_DEFAULT === $this->emphasisSymbol) {
+            return $speech;
+        }
+
+        return str_replace(self::EMPHASIS_SYMBOL_DEFAULT, $this->emphasisSymbol, $speech);
     }
 }
