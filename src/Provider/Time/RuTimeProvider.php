@@ -65,13 +65,39 @@ class RuTimeProvider implements ProviderInterface
     {
         $now = new \DateTimeImmutable();
 
-        $hours   = $this->masculineNumberFormatter->format($now->format('g'));
-        $minutes = $this->feminineNumberFormatter->format($now->format('i'));
+        $hours   = (int)$now->format('g');
+        $minutes = (int)round((int)$now->format('i') / 5) * 5;
 
-        if (0 === (int)$minutes) {
-            return implode(' ', [$hours, $this->translator->trans('provider.time.ru.exactly')]);
+        if (0 === $minutes) {
+            return implode(' ', [
+                $this->masculineNumberFormatter->format($hours),
+                $this->translator->trans('provider.time.ru.exactly'),
+            ]);
         }
 
-        return implode(' ', [$hours, $minutes]);
+        $hours++;
+
+        if ($hours > 12) {
+            $hours = 1;
+        }
+        if ($minutes < 30) {
+            return implode(' ', [
+                $this->feminineNumberFormatter->format($minutes),
+                $this->translator->trans('provider.time.ru.minutes.title'),
+                $this->translator->trans(sprintf('provider.time.ru.hours.genitive.%d', $hours)),
+            ]);
+        }
+        if ($minutes > 30) {
+            return implode(' ', [
+                $this->translator->trans('provider.time.ru.minutes.genitive.speech', [
+                    '%minutes%' => $this->translator->trans(sprintf('provider.time.ru.minutes.genitive.%d', 60 - $minutes)),
+                ]),
+                $this->masculineNumberFormatter->format($hours),
+            ]);
+        }
+
+        return $this->translator->trans('provider.time.ru.hours.genitive.speech', [
+            '%hours%' => $this->translator->trans(sprintf('provider.time.ru.hours.genitive.%d', $hours)),
+        ]);
     }
 }

@@ -5,6 +5,3 @@ provider:
             hours:   "%number% hour | %number% hours | %number% hours"
             minutes: "%number% minute | %number% minutes | %number% minutes"
             speech:  "Time is %hours% %minutes%."
-        ru:
-            exactly: "o'clock"
-            speech:  "Time is %time%."
