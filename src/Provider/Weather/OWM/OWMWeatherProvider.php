@@ -135,7 +135,7 @@ class OWMWeatherProvider implements ProviderInterface
     {
         $temperature = $main->getTemperature();
 
-        return $this->translator->transChoice('provider.weather.owm.temperature', $temperature, [
+        return $this->translator->transChoice('provider.weather.owm.temperature', abs($temperature), [
             '%number%' => $this->masculineNumberFormatter->format($temperature),
         ]);
     }
