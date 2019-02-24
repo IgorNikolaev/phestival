@@ -56,7 +56,7 @@ class GenericTimeProvider implements ProviderInterface
         $hours   = $this->getHours();
         $minutes = $this->getMinutes();
 
-        return $this->translator->trans('provider.time.common.speech', [
+        return $this->translator->trans('provider.time.generic.speech', [
             '%hours%'   => $hours,
             '%minutes%' => $minutes,
         ]);
@@ -69,7 +69,7 @@ class GenericTimeProvider implements ProviderInterface
     {
         $number = (int)(new \DateTimeImmutable())->format('G');
 
-        return $this->translator->transChoice('provider.time.common.hours', $number, [
+        return $this->translator->transChoice('provider.time.generic.hours', $number, [
             '%number%' => $this->masculineNumberFormatter->format($number),
         ]);
     }
@@ -82,8 +82,8 @@ class GenericTimeProvider implements ProviderInterface
         $number = (int)(new \DateTimeImmutable())->format('i');
 
         return 0 === $number
-            ? $this->translator->trans('provider.time.common.exactly')
-            : $this->translator->transChoice('provider.time.common.minutes', $number, [
+            ? $this->translator->trans('provider.time.generic.exactly')
+            : $this->translator->transChoice('provider.time.generic.minutes', $number, [
                 '%number%' => $this->feminineNumberFormatter->format($number),
             ]);
     }
