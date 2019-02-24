@@ -53,7 +53,7 @@ class RuTimeProvider implements ProviderInterface
      */
     public function get(): string
     {
-        return $this->translator->trans('provider.time.ru.speech', [
+        return $this->translator->trans('provider.time.common.speech', [
             '%time%' => $this->getTime(),
         ]);
     }
@@ -69,9 +69,15 @@ class RuTimeProvider implements ProviderInterface
         $minutes = (int)round((int)$now->format('i') / 5) * 5;
 
         if (0 === $minutes) {
+            $hoursFormatted = 1 === $hours
+                ? $this->translator->trans('provider.time.ru.hours.one')
+                : $this->translator->transChoice('provider.time.common.hours', $hours, [
+                    '%number%' => $this->masculineNumberFormatter->format($hours),
+                ]);
+
             return implode(' ', [
-                $this->masculineNumberFormatter->format($hours),
-                $this->translator->trans('provider.time.ru.exactly'),
+                $hoursFormatted,
+                $this->translator->trans('provider.time.common.exactly'),
             ]);
         }
 
@@ -82,22 +88,27 @@ class RuTimeProvider implements ProviderInterface
         }
         if ($minutes < 30) {
             return implode(' ', [
-                $this->feminineNumberFormatter->format($minutes),
-                $this->translator->trans('provider.time.ru.minutes.title'),
+                $this->translator->transChoice('provider.time.common.minutes', $minutes, [
+                    '%number%' => $this->feminineNumberFormatter->format($minutes),
+                ]),
                 $this->translator->trans(sprintf('provider.time.ru.hours.genitive.%d', $hours)),
             ]);
         }
         if ($minutes > 30) {
+            $hoursFormatted = 1 === $hours
+                ? $this->translator->trans('provider.time.ru.hours.one')
+                : $this->masculineNumberFormatter->format($hours);
+
             return implode(' ', [
-                $this->translator->trans('provider.time.ru.minutes.genitive.speech', [
-                    '%minutes%' => $this->translator->trans(sprintf('provider.time.ru.minutes.genitive.%d', 60 - $minutes)),
+                $this->translator->trans('provider.time.ru.minutes.without', [
+                    '%number%' => $this->translator->trans(sprintf('provider.time.ru.minutes.genitive.%d', 60 - $minutes)),
                 ]),
-                $this->masculineNumberFormatter->format($hours),
+                $hoursFormatted,
             ]);
         }
 
-        return $this->translator->trans('provider.time.ru.hours.genitive.speech', [
-            '%hours%' => $this->translator->trans(sprintf('provider.time.ru.hours.genitive.%d', $hours)),
+        return $this->translator->trans('provider.time.ru.hours.half', [
+            '%number%' => $this->translator->trans(sprintf('provider.time.ru.hours.genitive.%d', $hours)),
         ]);
     }
 }
