@@ -8,14 +8,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Phestival\Provider;
+namespace Phestival\Provider\Time;
 
+use Phestival\Provider\ProviderInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Time provider
+ * Generic time provider
  */
-class TimeProvider implements ProviderInterface
+class GenericTimeProvider implements ProviderInterface
 {
     /**
      * @var \NumberFormatter

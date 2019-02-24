@@ -86,8 +86,8 @@ services:
             - "%gmail_username%"
             - "%gmail_password%"
 
-    provider.time:
-        class: Phestival\Provider\TimeProvider
+    provider.time.generic:
+        class: Phestival\Provider\Time\GenericTimeProvider
         arguments:
             - "@number_formatter.feminine"
             - "@number_formatter.masculine"

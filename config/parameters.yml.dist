@@ -8,7 +8,7 @@ parameters:
     # Play command ("{FILE}" - pathname of file to play)
     play_command: "aplay {FILE}"
     # Enabled providers
-    providers: [ time, weather.owm, mail.gmail ]
+    providers: [ time.generic, weather.owm, mail.gmail ]
     # Gmail Atom feed URI
     gmail_feed_uri: https://mail.google.com/mail/feed/atom
     # Gmail account username
